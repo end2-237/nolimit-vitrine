@@ -159,10 +159,11 @@ function VideoBlock({ item }: { item: SiteMedia }) {
 }
 
 /* ── MaladieCard ─────────────────────────────────────────────────── */
-function MaladieCard({ maladie, media, index }: {
+function MaladieCard({ maladie, media, index, waLink }: {
   maladie: typeof MALADIES[0];
   media: SiteMedia[];
   index: number;
+  waLink: (msg: string) => string;
 }) {
   const [activeMedia, setActiveMedia] = useState<'photo' | 'video' | 'audio'>('photo');
 
@@ -402,6 +403,7 @@ export function Maladies() {
               maladie={m}
               media={mediaFor(m.id)}
               index={i}
+              waLink={waLink}
             />
           ))}
         </div>
