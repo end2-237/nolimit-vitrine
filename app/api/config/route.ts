@@ -1,6 +1,8 @@
 import { pool } from '@/lib/db';
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 const FALLBACK = {
   whatsapp_default:   '237699114722',
   whatsapp_douala:    '237699114722',
@@ -18,20 +20,14 @@ const FALLBACK = {
   boutique_enabled:   'true',
 };
 
-async function queryConfig(table: string) {
-  const res = await pool.query(`SELECT key, value FROM ${table} ORDER BY key`);
-  const cfg: Record<string, string> = {};
-  res.rows.forEach((r: { key: string; value: string }) => { cfg[r.key] = r.value; });
-  return cfg;
-}
-
 export async function GET() {
-  // Try site_settings first (existing prod table), then site_config (our migration)
-  for (const table of ['nolimit.site_settings', 'nolimit.site_config']) {
-    try {
-      const cfg = await queryConfig(table);
-      return NextResponse.json({ ...FALLBACK, ...cfg });
-    } catch {}
+  try {
+    const result = await pool.query(`SELECT key, value FROM nolimit.site_config ORDER BY key`);
+    const cfg: Record<string, string> = { ...FALLBACK };
+    result.rows.forEach((r: { key: string; value: string }) => { cfg[r.key] = r.value; });
+    return NextResponse.json(cfg);
+  } catch (err: any) {
+    console.error('[API /config]', err.message);
+    return NextResponse.json(FALLBACK);
   }
-  return NextResponse.json(FALLBACK);
 }
