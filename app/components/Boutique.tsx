@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Reveal, Arrow } from './Reveal';
 import { formatXAF } from './hooks';
 import { fetchPublishedProducts, type PublishedProduct } from '@/lib/supabase';
@@ -278,6 +278,70 @@ function CartDrawer({ open, onClose, cart, products, updateQty, onOrderDone }: {
   );
 }
 
+function BoutiqueVideoBanner() {
+  const [video, setVideo] = useState<{ url: string; title: string | null } | null>(null);
+  const [playing, setPlaying] = useState(false);
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    fetch('/api/site-media?section=boutique')
+      .then(r => r.ok ? r.json() : [])
+      .then((items: { media_type: string; url: string; title: string | null }[]) => {
+        const v = items.find(i => i.media_type === 'video');
+        if (v) setVideo(v);
+      })
+      .catch(() => {});
+  }, []);
+
+  if (!video) return null;
+
+  const toggle = () => {
+    if (!ref.current) return;
+    if (playing) { ref.current.pause(); setPlaying(false); }
+    else { ref.current.play(); setPlaying(true); }
+  };
+
+  return (
+    <Reveal delay={120}>
+      <div style={{ marginBottom: 64, borderRadius: 16, overflow: 'hidden', position: 'relative', background: '#0F1A0E', cursor: 'pointer' }} onClick={toggle}>
+        <video
+          ref={ref}
+          src={video.url}
+          style={{ width: '100%', maxHeight: 480, objectFit: 'cover', display: 'block' }}
+          playsInline
+          loop
+          onEnded={() => setPlaying(false)}
+        />
+        {/* Overlay gradient + play */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: playing ? 'transparent' : 'linear-gradient(to top, rgba(15,26,14,0.7) 0%, rgba(15,26,14,0.1) 60%, transparent 100%)',
+          transition: 'background .4s',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        }}>
+          {!playing && (
+            <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(255,255,255,0.92)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 12px 40px -8px rgba(0,0,0,0.5)', marginBottom: 'auto', marginTop: 'auto' }}>
+              <svg width="22" height="24" viewBox="0 0 22 24" fill="none"><path d="M2 2l18 10L2 22V2z" fill="#1A1A1A"/></svg>
+            </div>
+          )}
+        </div>
+        {/* Titre + badge */}
+        {!playing && video.title && (
+          <div style={{ position: 'absolute', bottom: 24, left: 28, right: 28 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(245,241,234,0.55)', display: 'block', marginBottom: 6 }}>Découvrez notre herboristerie</span>
+            <p style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(18px, 2.5vw, 28px)', fontWeight: 300, color: 'rgba(245,241,234,0.95)', lineHeight: 1.2 }}>{video.title}</p>
+          </div>
+        )}
+        {!playing && !video.title && (
+          <div style={{ position: 'absolute', bottom: 24, left: 28 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(245,241,234,0.55)' }}>Découvrez notre herboristerie</span>
+          </div>
+        )}
+      </div>
+    </Reveal>
+  );
+}
+
 export function Boutique() {
   const config = useConfig();
   const waNumber = config.whatsapp_default ?? '237699114722';
@@ -358,6 +422,9 @@ export function Boutique() {
             </p>
           </Reveal>
         </div>
+
+        {/* Vidéo herboristerie */}
+        <BoutiqueVideoBanner />
 
         {/* Toolbar */}
         <Reveal>
