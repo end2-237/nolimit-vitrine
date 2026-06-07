@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Reveal } from './Reveal';
+import { useConfig, waLink as buildWaLink } from '@/lib/useConfig';
 
 /* ── Types ─────────────────────────────────────────────────────── */
 type SiteMedia = {
@@ -77,11 +78,7 @@ const MALADIES = [
   },
 ];
 
-const WA_NUMBER = '237699114722';
-
-function waLink(message: string) {
-  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-}
+// waLink is now built dynamically from config in the Maladies component
 
 /* ── AudioPlayer ────────────────────────────────────────────────── */
 function AudioPlayer({ src, title }: { src: string; title: string }) {
@@ -311,6 +308,26 @@ function MaladieCard({ maladie, media, index }: {
             </div>
           </div>
 
+          {/* Bouton playlist vidéo */}
+          <a
+            href={`/maladies/${maladie.id}`}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 10,
+              padding: '13px 22px', borderRadius: 100, marginBottom: 12,
+              background: 'transparent', color: 'var(--ink)',
+              border: '1.5px solid rgba(26,26,26,0.2)',
+              fontFamily: 'var(--sans)', fontSize: 13, fontWeight: 600,
+              textDecoration: 'none', letterSpacing: '0.01em',
+              transition: 'border-color .25s, background .25s',
+              alignSelf: 'flex-start',
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--ink)'; (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(26,26,26,0.04)'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(26,26,26,0.2)'; (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5"/><path d="M10 8l6 4-6 4V8z" fill="currentColor"/></svg>
+            Voir les vidéos
+          </a>
+
           {/* CTA WhatsApp */}
           <a
             href={waLink(maladie.message)}
@@ -329,9 +346,7 @@ function MaladieCard({ maladie, media, index }: {
             onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 16px 36px -6px rgba(37,211,102,0.55)'; }}
             onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 10px 28px -6px rgba(37,211,102,0.45)'; }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
+            <svg width="18" height="18" viewBox="0 0 32 32" fill="white"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.668 4.61 1.832 6.508L4 29l7.697-1.808A12.94 12.94 0 0016 28c6.627 0 12-5.373 12-12S22.627 3 16 3zm6.04 13.86c-.33-.165-1.953-.963-2.256-1.073-.303-.11-.523-.165-.743.165-.22.33-.852 1.073-1.045 1.292-.193.22-.385.248-.715.083-.33-.165-1.393-.513-2.654-1.637-.98-.875-1.643-1.955-1.836-2.285-.193-.33-.02-.508.145-.673.15-.148.33-.385.495-.578.165-.193.22-.33.33-.55.11-.22.055-.413-.028-.578-.083-.165-.743-1.79-1.018-2.45-.268-.643-.54-.555-.743-.565l-.633-.011c-.22 0-.578.083-.88.413-.303.33-1.155 1.128-1.155 2.75s1.183 3.19 1.347 3.41c.165.22 2.328 3.555 5.643 4.987.789.34 1.404.543 1.884.694.79.252 1.51.217 2.079.132.634-.095 1.953-.799 2.228-1.57.275-.77.275-1.43.193-1.568-.083-.138-.303-.22-.633-.385z"/></svg>
             Discuter avec le docteur
           </a>
         </div>
@@ -342,6 +357,9 @@ function MaladieCard({ maladie, media, index }: {
 
 /* ── Section principale ─────────────────────────────────────────── */
 export function Maladies() {
+  const config = useConfig();
+  const waNumber = config.whatsapp_default ?? '237699114722';
+  const waLink = (msg: string) => buildWaLink(waNumber, msg);
   const [allMedia, setAllMedia] = useState<SiteMedia[]>([]);
 
   useEffect(() => {
