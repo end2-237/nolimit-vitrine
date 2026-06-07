@@ -27,6 +27,13 @@ const TONE: Record<string, string> = {
   cosmo: '', boisson: 'warm', access: 'dark', other: '',
 };
 
+function proxyImg(url: string | undefined) {
+  if (!url) return undefined;
+  if (url.startsWith('data:')) return undefined; // base64 non supporté
+  if (url.startsWith('/')) return url; // relatif → direct
+  return `/api/img-proxy?url=${encodeURIComponent(url)}`;
+}
+
 function ProductCard({ p, onQuick, onAdd, waNumber }: { p: PublishedProduct & { vitrineCat: string }; onQuick: () => void; onAdd: () => void; waNumber: string }) {
   const [hover, setHover] = useState(false);
   const tone = TONE[p.vitrineCat] ?? '';
@@ -44,7 +51,7 @@ function ProductCard({ p, onQuick, onAdd, waNumber }: { p: PublishedProduct & { 
       >
         <div className={`ph ${tone}`} style={{ aspectRatio: '4/5', borderRadius: 4, position: 'relative', overflow: 'hidden' }}>
           {p.image_url ? (
-            <img src={p.image_url} alt={p.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src={proxyImg(p.image_url)} alt={p.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
           ) : (
             <ProductSilhouette cat={p.vitrineCat} />
           )}
@@ -112,7 +119,7 @@ function ProductModal({ p, onClose, onAdd }: { p: PublishedProduct & { vitrineCa
       <div style={{ background: 'var(--cream)', borderRadius: 16, maxWidth: 680, width: '100%', overflow: 'hidden', display: 'grid', gridTemplateColumns: '1fr 1fr', animation: 'slideUp .4s ease' }} className="modal-grid" onClick={e => e.stopPropagation()}>
         <div className={`ph ${tone}`} style={{ minHeight: 360, position: 'relative' }}>
           {p.image_url ? (
-            <img src={p.image_url} alt={p.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src={proxyImg(p.image_url)} alt={p.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
           ) : (
             <ProductSilhouette cat={p.vitrineCat} />
           )}
