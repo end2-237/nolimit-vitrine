@@ -14,71 +14,18 @@ type SiteMedia = {
   title: string | null;
 };
 
-/* ── Données des maladies ───────────────────────────────────────── */
-const MALADIES = [
-  {
-    id: 'hepatite',
-    nom: 'Hépatite',
-    emoji: '🫀',
-    couleur: '#B8593D',
-    bg: '#FFF5F2',
-    border: '#FDDDD5',
-    tagColor: '#B8593D',
-    tagBg: '#FDDDD5',
-    accroche: 'Régénération naturelle du foie',
-    description:
-      "L'hépatite virale (B et C) touche des millions de personnes en Afrique. Notre protocole naturel associe des plantes hépatoprotectrices — moringa, curcuma, chardon-marie — à une démarche de détoxification progressive pour soutenir la régénération du foie sans effets secondaires.",
-    approche: [
-      'Phytothérapie hépatoprotectrice',
-      'Détoxification progressive',
-      'Renforcement immunitaire naturel',
-      'Suivi médical personnalisé',
-    ],
-    message: '2356 Hépatite - Bonjour Docteur, je souhaite des informations sur l\'approche naturelle contre l\'hépatite.',
-  },
-  {
-    id: 'vih',
-    nom: 'VIH / Immunité',
-    emoji: '🛡️',
-    couleur: '#3D4F3C',
-    bg: '#F0F5EF',
-    border: '#C8D9C6',
-    tagColor: '#3D4F3C',
-    tagBg: '#C8D9C6',
-    accroche: 'Renforcement immunitaire profond',
-    description:
-      "Face au VIH, notre approche ne remplace pas le traitement médical mais le complète. Les compléments naturels No Limit — artemisia, moringa, noni — agissent sur le renforcement du système immunitaire, la réduction de la fatigue chronique et l'amélioration de la qualité de vie au quotidien.",
-    approche: [
-      'Compléments immunostimulants',
-      'Gestion de la fatigue chronique',
-      'Nutrition anti-inflammatoire',
-      'Accompagnement holistique',
-    ],
-    message: '2356 VIH - Bonjour Docteur, je souhaite des informations sur le renforcement immunitaire naturel.',
-  },
-  {
-    id: 'hypertension',
-    nom: 'Hypertension',
-    emoji: '❤️',
-    couleur: '#1E40AF',
-    bg: '#EFF6FF',
-    border: '#BFDBFE',
-    tagColor: '#1E40AF',
-    tagBg: '#BFDBFE',
-    accroche: 'Équilibre tensionnel naturel',
-    description:
-      "L'hypertension artérielle est l'une des pathologies les plus répandues au Cameroun. Notre programme associe des plantes antihypertensives éprouvées — hibiscus sabdariffa, ail noir, olivier — à des conseils alimentaires et un suivi régulier pour aider à maintenir une tension stable sans dépendance aux médicaments chimiques.",
-    approche: [
-      'Plantes antihypertensives certifiées',
-      'Régime alimentaire adapté',
-      'Réduction du stress oxydatif',
-      'Contrôle tensionnel régulier',
-    ],
-    message: '2356 Hypertension - Bonjour Docteur, je voudrais des informations sur l\'approche naturelle contre l\'hypertension.',
-  },
-];
+/* ── Type Maladie DB ────────────────────────────────────────────── */
+type MaladieDB = {
+  id: number; slug: string; nom: string; couleur: string;
+  description: string | null; message_wa: string | null; sort_order: number;
+};
 
-// waLink is now built dynamically from config in the Maladies component
+function maladieToCssProps(m: MaladieDB) {
+  const c = m.couleur;
+  return { couleur: c, bg: `${c}12`, border: `${c}30`, tagColor: c, tagBg: `${c}25` };
+}
+
+// waLink is built dynamically from config in the Maladies component
 
 /* ── AudioPlayer ────────────────────────────────────────────────── */
 function AudioPlayer({ src, title }: { src: string; title: string }) {
@@ -160,11 +107,12 @@ function VideoBlock({ item }: { item: SiteMedia }) {
 
 /* ── MaladieCard ─────────────────────────────────────────────────── */
 function MaladieCard({ maladie, media, index, waLink }: {
-  maladie: typeof MALADIES[0];
+  maladie: MaladieDB;
   media: SiteMedia[];
   index: number;
   waLink: (msg: string) => string;
 }) {
+  const css = maladieToCssProps(maladie);
   const [activeMedia, setActiveMedia] = useState<'photo' | 'video' | 'audio'>('photo');
 
   const photos = media.filter(m => m.media_type === 'image');
@@ -181,8 +129,8 @@ function MaladieCard({ maladie, media, index, waLink }: {
   return (
     <Reveal delay={index * 80}>
       <div style={{
-        background: maladie.bg,
-        border: `1px solid ${maladie.border}`,
+        background: css.bg,
+        border: `1px solid ${css.border}`,
         borderRadius: 20, overflow: 'hidden',
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
@@ -244,7 +192,7 @@ function MaladieCard({ maladie, media, index, waLink }: {
             )}
             {activeMedia === 'photo' && !hasPhoto && (
               <div style={{ height: '100%', minHeight: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #1B2B1A 0%, #0F1F0E 100%)' }}>
-                <span style={{ fontSize: 80, opacity: 0.15 }}>{maladie.emoji}</span>
+                <span style={{ fontSize: 80, opacity: 0.15 }}>🌿</span>
               </div>
             )}
             {activeMedia === 'video' && hasVideo && (
@@ -276,7 +224,7 @@ function MaladieCard({ maladie, media, index, waLink }: {
             <span style={{
               display: 'inline-block', fontSize: 10, fontWeight: 700, letterSpacing: '0.1em',
               textTransform: 'uppercase', padding: '4px 12px', borderRadius: 100,
-              background: maladie.tagBg, color: maladie.tagColor, marginBottom: 20,
+              background: css.tagBg, color: css.tagColor, marginBottom: 20,
             }}>
               Approche naturelle
             </span>
@@ -289,29 +237,16 @@ function MaladieCard({ maladie, media, index, waLink }: {
             }}>
               {maladie.nom}
             </h3>
-            <p style={{ fontSize: 14, fontWeight: 600, color: maladie.couleur, marginBottom: 20, letterSpacing: '0.02em' }}>
-              {maladie.accroche}
-            </p>
 
             {/* Description */}
             <p style={{ fontSize: 14, lineHeight: 1.75, color: 'var(--muted)', marginBottom: 28 }}>
               {maladie.description}
             </p>
-
-            {/* Approche */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
-              {maladie.approche.map((a, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: maladie.couleur, flexShrink: 0 }} />
-                  <span style={{ fontSize: 13, color: 'var(--ink-soft)', fontWeight: 500 }}>{a}</span>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* Bouton playlist vidéo */}
           <a
-            href={`/maladies/${maladie.id}`}
+            href={`/maladies/${maladie.slug}`}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 10,
               padding: '13px 22px', borderRadius: 100, marginBottom: 12,
@@ -331,7 +266,7 @@ function MaladieCard({ maladie, media, index, waLink }: {
 
           {/* CTA WhatsApp */}
           <a
-            href={waLink(maladie.message)}
+            href={waLink(maladie.message_wa ?? `2356 ${maladie.nom} - Bonjour Docteur, je souhaite des informations.`)}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -361,9 +296,14 @@ export function Maladies() {
   const config = useConfig();
   const waNumber = config.whatsapp_default ?? '237699114722';
   const waLink = (msg: string) => buildWaLink(waNumber, msg);
+  const [maladies, setMaladies] = useState<MaladieDB[]>([]);
   const [allMedia, setAllMedia] = useState<SiteMedia[]>([]);
 
   useEffect(() => {
+    fetch('/api/maladies')
+      .then(r => r.ok ? r.json() : [])
+      .then(setMaladies)
+      .catch(() => {});
     fetch('/api/site-media?section=maladies')
       .then(r => r.ok ? r.json() : [])
       .then(setAllMedia)
@@ -397,11 +337,11 @@ export function Maladies() {
 
         {/* Cards maladies */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 3vw, 36px)' }}>
-          {MALADIES.map((m, i) => (
+          {maladies.map((m, i) => (
             <MaladieCard
               key={m.id}
               maladie={m}
-              media={mediaFor(m.id)}
+              media={mediaFor(m.slug)}
               index={i}
               waLink={waLink}
             />
