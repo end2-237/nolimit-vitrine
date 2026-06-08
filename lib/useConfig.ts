@@ -21,23 +21,14 @@ const DEFAULT_CONFIG: SiteConfig = {
   boutique_enabled:   'true',
 };
 
-let _cache: SiteConfig | null = null;
-let _promise: Promise<SiteConfig> | null = null;
-
-async function loadConfig(): Promise<SiteConfig> {
-  if (_cache) return _cache;
-  if (!_promise) {
-    _promise = fetch('/api/config')
-      .then(r => r.ok ? r.json() : DEFAULT_CONFIG)
-      .then(cfg => { _cache = { ...DEFAULT_CONFIG, ...cfg }; return _cache!; })
-      .catch(() => DEFAULT_CONFIG);
-  }
-  return _promise;
-}
-
 export function useConfig() {
   const [config, setConfig] = useState<SiteConfig>(DEFAULT_CONFIG);
-  useEffect(() => { loadConfig().then(setConfig); }, []);
+  useEffect(() => {
+    fetch('/api/config')
+      .then(r => r.ok ? r.json() : DEFAULT_CONFIG)
+      .then(cfg => setConfig({ ...DEFAULT_CONFIG, ...cfg }))
+      .catch(() => {});
+  }, []);
   return config;
 }
 
