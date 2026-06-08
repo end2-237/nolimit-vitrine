@@ -45,6 +45,7 @@ function VideoThumb({ item, style }: { item: SiteMedia; style?: React.CSSPropert
       <video
         ref={vidRef}
         src={item.url}
+        crossOrigin="anonymous"
         poster={thumb || undefined}
         style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
         loop
