@@ -313,7 +313,7 @@ function BoutiqueVideoBanner() {
 
   return (
     <Reveal delay={120}>
-      <div style={{ marginBottom: 64, borderRadius: 16, overflow: 'hidden', position: 'relative', background: '#0F1A0E', cursor: 'pointer' }} onClick={toggle}>
+      <div style={{ marginBottom: 64, borderRadius: 16, overflow: 'hidden', position: 'relative', background: '#071912', cursor: 'pointer' }} onClick={toggle}>
         <video
           ref={ref}
           src={video.url}
@@ -331,7 +331,7 @@ function BoutiqueVideoBanner() {
         }}>
           {!playing && (
             <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(255,255,255,0.92)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 12px 40px -8px rgba(0,0,0,0.5)', marginBottom: 'auto', marginTop: 'auto' }}>
-              <svg width="22" height="24" viewBox="0 0 22 24" fill="none"><path d="M2 2l18 10L2 22V2z" fill="#1A1A1A"/></svg>
+              <svg width="22" height="24" viewBox="0 0 22 24" fill="none"><path d="M2 2l18 10L2 22V2z" fill="#0C2218"/></svg>
             </div>
           )}
         </div>

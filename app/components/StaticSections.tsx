@@ -58,7 +58,7 @@ function VideoThumb({ item, style }: { item: SiteMedia; style?: React.CSSPropert
         }}>
           <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
-              <path d="M1 1l14 8-14 8V1z" fill="#1A1A1A" />
+              <path d="M1 1l14 8-14 8V1z" fill="#0C2218" />
             </svg>
           </div>
         </div>

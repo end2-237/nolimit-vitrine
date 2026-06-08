@@ -44,12 +44,13 @@ export function Hero({ onBook }: { onBook: () => void }) {
   return (
     <section id="top" style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden', color: 'var(--cream)' }}>
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(120% 80% at 70% 30%, #4a5e48 0%, #2a3528 55%, #151913 100%)' }} />
-        <FoliageLayer scrollY={y} z={-40} opacity={0.22} hue={70} />
-        <FoliageLayer scrollY={y} z={-20} opacity={0.30} hue={90} offset={120} />
-        <FoliageLayer scrollY={y} z={0} opacity={0.55} hue={50} offset={260} blur={0} />
-        <div style={{ position: 'absolute', top: '-10%', left: '60%', width: '60vw', height: '60vw', background: 'radial-gradient(circle, rgba(184,147,90,0.32) 0%, transparent 65%)', filter: 'blur(20px)', mixBlendMode: 'screen', transform: `translateY(${y * 0.1}px)` }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(15,18,12,0.45) 0%, rgba(15,18,12,0.25) 40%, rgba(15,18,12,0.8) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(130% 80% at 65% 25%, #0F5C32 0%, #083D20 50%, #041A0E 100%)' }} />
+        <FoliageLayer scrollY={y} z={-40} opacity={0.28} hue={130} />
+        <FoliageLayer scrollY={y} z={-20} opacity={0.38} hue={150} offset={120} />
+        <FoliageLayer scrollY={y} z={0} opacity={0.60} hue={110} offset={260} blur={0} />
+        <div style={{ position: 'absolute', top: '-10%', left: '55%', width: '65vw', height: '65vw', background: 'radial-gradient(circle, rgba(240,168,0,0.28) 0%, transparent 65%)', filter: 'blur(24px)', mixBlendMode: 'screen', transform: `translateY(${y * 0.1}px)` }} />
+        <div style={{ position: 'absolute', bottom: 0, left: '-5%', width: '55vw', height: '55vw', background: 'radial-gradient(circle, rgba(30,125,74,0.22) 0%, transparent 65%)', filter: 'blur(30px)', mixBlendMode: 'screen' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(4,26,14,0.35) 0%, rgba(4,26,14,0.15) 40%, rgba(4,26,14,0.75) 100%)' }} />
       </div>
 
       <div className="container" style={{ position: 'relative', zIndex: 2, minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingTop: 140, paddingBottom: 60 }}>

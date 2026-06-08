@@ -43,7 +43,7 @@ function AudioPlayer({ src, title }: { src: string; title: string }) {
   const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 
   return (
-    <div style={{ background: '#192916', borderRadius: 12, padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 14 }}>
+    <div style={{ background: '#0A2E18', borderRadius: 12, padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 14 }}>
       <audio ref={ref} src={src}
         onTimeUpdate={() => setElapsed(ref.current?.currentTime || 0)}
         onLoadedMetadata={() => setDuration(ref.current?.duration || 0)}
@@ -51,8 +51,8 @@ function AudioPlayer({ src, title }: { src: string; title: string }) {
       />
       <button onClick={toggle} style={{
         width: 42, height: 42, borderRadius: '50%', border: 'none', cursor: 'pointer', flexShrink: 0,
-        background: '#B8935A', display: 'flex', alignItems: 'center', justifyContent: 'center',
-        boxShadow: '0 6px 20px -4px rgba(184,147,90,0.5)',
+        background: '#F0A800', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        boxShadow: '0 6px 20px -4px rgba(240,168,0,0.5)',
       }}>
         {playing
           ? <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><rect x="1" y="1" width="3.5" height="12" rx="1" fill="white"/><rect x="7.5" y="1" width="3.5" height="12" rx="1" fill="white"/></svg>
@@ -68,7 +68,7 @@ function AudioPlayer({ src, title }: { src: string; title: string }) {
             const pct = (e.clientX - rect.left) / rect.width;
             ref.current.currentTime = pct * duration;
           }}>
-          <div style={{ position: 'absolute', left: 0, top: 0, height: '100%', background: '#B8935A', borderRadius: 99, width: duration ? `${(elapsed / duration) * 100}%` : '0%', transition: 'width .1s linear' }} />
+          <div style={{ position: 'absolute', left: 0, top: 0, height: '100%', background: '#F0A800', borderRadius: 99, width: duration ? `${(elapsed / duration) * 100}%` : '0%', transition: 'width .1s linear' }} />
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
           <span style={{ fontSize: 10, color: 'rgba(245,241,234,0.35)' }}>{fmt(elapsed)}</span>
@@ -97,7 +97,7 @@ function VideoBlock({ item }: { item: SiteMedia }) {
       {!playing && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.35)' }}>
           <div style={{ width: 52, height: 52, borderRadius: '50%', background: 'rgba(255,255,255,0.92)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px -4px rgba(0,0,0,0.4)' }}>
-            <svg width="16" height="18" viewBox="0 0 16 18" fill="none"><path d="M1 1l14 8-14 8V1z" fill="#1A1A1A"/></svg>
+            <svg width="16" height="18" viewBox="0 0 16 18" fill="none"><path d="M1 1l14 8-14 8V1z" fill="#0C2218"/></svg>
           </div>
         </div>
       )}
@@ -138,7 +138,7 @@ function MaladieCard({ maladie, media, index, waLink }: {
       }} className="maladie-card">
 
         {/* ── Colonne gauche : média ── */}
-        <div style={{ position: 'relative', background: '#0F1A0E', order: isEven ? 0 : 1 }} className="maladie-media">
+        <div style={{ position: 'relative', background: '#071912', order: isEven ? 0 : 1 }} className="maladie-media">
 
           {/* Onglets media */}
           {(hasVideo || hasAudio) && (
@@ -191,7 +191,7 @@ function MaladieCard({ maladie, media, index, waLink }: {
               </div>
             )}
             {activeMedia === 'photo' && !hasPhoto && (
-              <div style={{ height: '100%', minHeight: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #1B2B1A 0%, #0F1F0E 100%)' }}>
+              <div style={{ height: '100%', minHeight: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #0E3321 0%, #071912 100%)' }}>
                 <span style={{ fontSize: 80, opacity: 0.15 }}>🌿</span>
               </div>
             )}
@@ -352,7 +352,7 @@ export function Maladies() {
         <Reveal delay={100}>
           <div style={{
             marginTop: 'clamp(48px,6vw,80px)',
-            background: '#192916',
+            background: '#0A2E18',
             borderRadius: 20,
             padding: 'clamp(32px,4vw,56px)',
             display: 'flex', flexDirection: 'column', alignItems: 'center',
