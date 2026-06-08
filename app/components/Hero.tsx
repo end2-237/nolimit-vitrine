@@ -16,10 +16,13 @@ function FoliageLayer({ scrollY, z, opacity, hue, offset = 0, blur = 2 }: { scro
           const cx = ((i * 247 + offset) % 1440);
           const cy = ((i * 163 + offset * 0.6) % 900) - 100;
           const r = 80 + (i % 3) * 60;
+          // Palette vivante : verts émeraude vifs (hsl 140-160) + saturation haute
+          const sat = 60 + (i % 3) * 10;
+          const light = 32 + i * 4;
           return (
             <g key={i} transform={`translate(${cx},${cy}) rotate(${i * 37 + hue})`} style={{ animation: `pulse ${3 + i}s ease-in-out infinite`, animationDelay: `${i * 0.4}s` }}>
-              <ellipse rx={r} ry={r * 1.6} fill={`hsl(${100 + hue + i * 8}, 35%, ${22 + i * 3}%)`} />
-              <ellipse rx={r * 0.6} ry={r * 1.2} fill={`hsl(${110 + hue + i * 5}, 40%, ${28 + i * 2}%)`} cx={r * 0.3} cy={-r * 0.2} />
+              <ellipse rx={r} ry={r * 1.6} fill={`hsl(${148 + (i % 3) * 6}, ${sat}%, ${light}%)`} />
+              <ellipse rx={r * 0.6} ry={r * 1.2} fill={`hsl(${155 + (i % 2) * 8}, ${sat + 8}%, ${light + 8}%)`} cx={r * 0.3} cy={-r * 0.2} />
             </g>
           );
         })}
