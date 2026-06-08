@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { Reveal, Arrow } from './Reveal';
 import { formatXAF } from './hooks';
 import { fetchPublishedProducts, type PublishedProduct } from '@/lib/supabase';
@@ -357,6 +357,7 @@ export function Boutique() {
   const waNumber = config.whatsapp_default ?? '237699114722';
   const [products, setProducts] = useState<(PublishedProduct & { vitrineCat: string })[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [cat, setCat] = useState('all');
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('default');
@@ -365,16 +366,24 @@ export function Boutique() {
   const [cartOpen, setCartOpen] = useState(false);
   const [quick, setQuick] = useState<(PublishedProduct & { vitrineCat: string }) | null>(null);
 
-  useEffect(() => {
+  const loadProducts = useCallback(() => {
+    setLoading(true);
+    setLoadError(false);
     fetchPublishedProducts().then(data => {
-      const enriched = data.map(p => ({
-        ...p,
-        vitrineCat: CAT_LABELS[p.category]?.vitrineCat ?? 'other',
-      }));
-      setProducts(enriched);
+      if (data.length === 0) {
+        setLoadError(true);
+      } else {
+        const enriched = data.map(p => ({
+          ...p,
+          vitrineCat: CAT_LABELS[p.category]?.vitrineCat ?? 'other',
+        }));
+        setProducts(enriched);
+      }
       setLoading(false);
     });
   }, []);
+
+  useEffect(() => { loadProducts(); }, [loadProducts]);
 
   // Derive categories from actual products
   const categories = useMemo(() => {
@@ -480,8 +489,20 @@ export function Boutique() {
           </div>
         )}
 
+        {/* Erreur réseau avec retry */}
+        {!loading && loadError && (
+          <div style={{ textAlign: 'center', padding: '60px 0' }}>
+            <p style={{ fontSize: 15, color: 'var(--muted)', marginBottom: 20 }}>
+              Impossible de charger les produits — vérifiez votre connexion.
+            </p>
+            <button className="btn btn-primary" onClick={loadProducts}>
+              Réessayer
+            </button>
+          </div>
+        )}
+
         {/* Grid */}
-        {!loading && (
+        {!loading && !loadError && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 28 }} className="shop-grid">
             {visible.map(p => (
               <ProductCard key={p.id} p={p} onQuick={() => setQuick(p)} onAdd={() => addToCart(p)} waNumber={waNumber} />
@@ -498,11 +519,9 @@ export function Boutique() {
           </div>
         )}
 
-        {!loading && filtered.length === 0 && (
+        {!loading && !loadError && filtered.length === 0 && (
           <div style={{ padding: '80px 20px', textAlign: 'center', fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 22, color: 'var(--muted)' }}>
-            {products.length === 0
-              ? 'La boutique est en cours de mise à jour — revenez bientôt.'
-              : 'Aucune référence ne correspond — essayez d\'autres mots-clés.'}
+            Aucune référence ne correspond — essayez d&apos;autres mots-clés.
           </div>
         )}
       </div>

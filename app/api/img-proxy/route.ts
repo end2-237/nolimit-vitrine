@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const upstream = await fetch(url, { headers: { 'User-Agent': 'nolimit-vitrine/1.0' } });
+    const upstream = await fetch(url, { headers: { 'User-Agent': 'nolimit-vitrine/1.0' }, signal: AbortSignal.timeout(8_000) });
     if (!upstream.ok) return new NextResponse('upstream error', { status: 502 });
 
     const contentType = upstream.headers.get('content-type') || 'image/jpeg';
