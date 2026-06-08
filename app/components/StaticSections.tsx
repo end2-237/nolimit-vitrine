@@ -217,9 +217,9 @@ export function Lieu() {
 
 // ─── Centres ─────────────────────────────────────────────────────
 const CENTRES_DATA = [
-  { name: 'Douala',    sub: 'Cameroun', desc: 'Notre centre principal. Lun–Sam, 09h00–19h00. Consultation médecin : 09h00–18h00. Samedi : fermeture entre 15h00 et 16h00.', qty: '3+ conseillers', img: 'sage',  subsection: 'douala' },
-  { name: 'Yaoundé',  sub: 'Cameroun', desc: 'Centre actif. Lun–Sam, 09h00–19h00. Consultation médecin : 09h00–18h00. Samedi : fermeture entre 15h00 et 16h00.',          qty: '3+ conseillers', img: 'dark',  subsection: 'yaounde' },
-  { name: 'Bafoussam',sub: 'Cameroun', desc: 'Notre antenne Ouest. Lun–Sam, 08h00–17h30. Samedi : journée continue plus courte, fermeture entre 15h00 et 16h00.',          qty: '3+ conseillers', img: 'warm',  subsection: 'bafoussam' },
+  { name: 'Douala',    sub: 'Cameroun', desc: 'Face Totale — Logpom. Lun–Sam, 09h00–19h00. Consultation médecin : 09h00–18h00. Samedi : fermeture entre 15h00 et 16h00.', qty: '3+ conseillers', img: 'sage',  subsection: 'douala' },
+  { name: 'Yaoundé',  sub: 'Cameroun', desc: 'Santa Barbara — Immeuble blanc. Lun–Sam, 09h00–19h00. Consultation médecin : 09h00–18h00. Samedi : fermeture entre 15h00 et 16h00.', qty: '3+ conseillers', img: 'dark',  subsection: 'yaounde' },
+  { name: 'Bafoussam',sub: 'Cameroun', desc: 'Près de l'agence Général Express. Lun–Sam, 08h00–17h30. Samedi : journée continue plus courte, fermeture entre 15h00 et 16h00.', qty: '3+ conseillers', img: 'warm',  subsection: 'bafoussam' },
 ];
 
 export function Centres() {
