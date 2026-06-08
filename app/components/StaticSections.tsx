@@ -92,7 +92,7 @@ function MediaBlock({ item, fallbackClass, style }: {
 
 // ─── Equipe ──────────────────────────────────────────────────────
 const TEAM = [
-  { name: 'Dr. No Limit', role: 'Chercheur & Médecin principal', site: 'Douala', img: 'sage', years: 30, bio: "Fondateur de la vision No Limit. Médecin et chercheur, il sélectionne les formules et supervise la qualité de l'ensemble des produits naturels proposés dans nos centres." },
+  { name: 'Dr. Yongwa Guy Bertin', role: 'Chercheur & Médecin principal', site: 'Douala', img: 'sage', years: 30, bio: "Fondateur de la vision No Limit. Médecin et chercheur, il sélectionne les formules et supervise la qualité de l'ensemble des produits naturels proposés dans nos centres." },
   { name: 'Direction générale', role: 'Management & Direction opérationnelle', site: 'Douala', img: 'dark', years: 2, bio: "Co-fondateur et directeur général, il assure la gestion quotidienne, les partenariats stratégiques et le développement commercial de No Limit à travers ses trois centres." },
   { name: 'Équipe Douala', role: 'Conseillers santé naturelle', site: 'Douala', img: 'warm', years: 1, bio: "Trois conseillers formés à la prescription et à l'accompagnement des produits No Limit. Ils reçoivent les clients du lundi au samedi de 09h00 à 19h00." },
   { name: 'Équipe Yaoundé', role: 'Conseillers santé naturelle', site: 'Yaoundé', img: '', years: 1, bio: "Trois conseillers formés à la prescription et à l'accompagnement des produits No Limit. Ils reçoivent les clients du lundi au samedi de 09h00 à 19h00." },
