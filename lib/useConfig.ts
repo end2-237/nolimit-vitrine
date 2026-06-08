@@ -26,7 +26,15 @@ export function useConfig() {
   useEffect(() => {
     fetch('/api/config')
       .then(r => r.ok ? r.json() : DEFAULT_CONFIG)
-      .then(cfg => setConfig({ ...DEFAULT_CONFIG, ...cfg }))
+      .then(cfg => {
+        const merged = { ...DEFAULT_CONFIG, ...cfg };
+        // Si whatsapp_default absent, dériver depuis contact_phone
+        if (!cfg.whatsapp_default && cfg.contact_phone) {
+          merged.whatsapp_default = cfg.contact_phone;
+          merged.whatsapp_douala = cfg.contact_phone;
+        }
+        setConfig(merged);
+      })
       .catch(() => {});
   }, []);
   return config;
