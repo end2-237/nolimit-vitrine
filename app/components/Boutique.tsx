@@ -30,7 +30,10 @@ const TONE: Record<string, string> = {
 function ProductCard({ p, onQuick, onAdd, waNumber }: { p: PublishedProduct & { vitrineCat: string }; onQuick: () => void; onAdd: () => void; waNumber: string }) {
   const [hover, setHover] = useState(false);
   const tone = TONE[p.vitrineCat] ?? '';
-  const waMsg = waLink(waNumber, `Bonjour, je voudrais commander : ${p.name} (${formatXAF(p.price)})`);
+  const waText = p.image_url
+    ? `Bonjour, je voudrais commander :\n\n*${p.name}*\nPrix : ${formatXAF(p.price)}\n\n${p.image_url}`
+    : `Bonjour, je voudrais commander :\n\n*${p.name}*\nPrix : ${formatXAF(p.price)}`;
+  const waMsg = waLink(waNumber, waText);
   return (
     <Reveal>
       <article
