@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { Reveal, Arrow } from './Reveal';
 import { formatXAF } from './hooks';
 import { fetchPublishedProducts, type PublishedProduct } from '@/lib/supabase';
+import { useConfig, waLink } from '@/lib/useConfig';
 
 // SNL category → vitrine display mapping
 const CAT_LABELS: Record<string, { label: string; vitrineCat: string }> = {
@@ -26,9 +27,10 @@ const TONE: Record<string, string> = {
   cosmo: '', boisson: 'warm', access: 'dark', other: '',
 };
 
-function ProductCard({ p, onQuick, onAdd }: { p: PublishedProduct & { vitrineCat: string }; onQuick: () => void; onAdd: () => void }) {
+function ProductCard({ p, onQuick, onAdd, waNumber }: { p: PublishedProduct & { vitrineCat: string }; onQuick: () => void; onAdd: () => void; waNumber: string }) {
   const [hover, setHover] = useState(false);
   const tone = TONE[p.vitrineCat] ?? '';
+  const waMsg = waLink(waNumber, `Bonjour, je voudrais commander : ${p.name} (${formatXAF(p.price)})`);
   return (
     <Reveal>
       <article
@@ -48,14 +50,18 @@ function ProductCard({ p, onQuick, onAdd }: { p: PublishedProduct & { vitrineCat
               onClick={(e) => { e.stopPropagation(); onAdd(); }}
               style={{ flex: 1, padding: '12px 16px', borderRadius: 999, background: 'var(--cream)', color: 'var(--ink)', fontSize: 13, fontWeight: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}
             >
-              + Ajouter
+              + Panier
             </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); onQuick(); }}
-              style={{ width: 44, height: 44, borderRadius: '50%', background: 'rgba(245,241,234,0.85)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            <a
+              href={waMsg}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              title="Commander sur WhatsApp"
+              style={{ width: 44, height: 44, borderRadius: '50%', background: '#25D366', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" /><path d="M8 5v3l2 2" stroke="currentColor" strokeLinecap="round" /></svg>
-            </button>
+              <svg width="20" height="20" viewBox="0 0 32 32" fill="white"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.668 4.61 1.832 6.508L4 29l7.697-1.808A12.94 12.94 0 0016 28c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 22a10.94 10.94 0 01-5.565-1.516l-.398-.238-4.57 1.074 1.1-4.46-.26-.41A10.944 10.944 0 015 15c0-6.065 4.935-11 11-11s11 4.935 11 11-4.935 11-11 11zm6.04-8.14c-.33-.165-1.953-.963-2.256-1.073-.303-.11-.523-.165-.743.165-.22.33-.852 1.073-1.045 1.292-.193.22-.385.248-.715.083-.33-.165-1.393-.513-2.654-1.637-.98-.875-1.643-1.955-1.836-2.285-.193-.33-.02-.508.145-.673.15-.148.33-.385.495-.578.165-.193.22-.33.33-.55.11-.22.055-.413-.028-.578-.083-.165-.743-1.79-1.018-2.45-.268-.643-.54-.555-.743-.565l-.633-.011c-.22 0-.578.083-.88.413-.303.33-1.155 1.128-1.155 2.75s1.183 3.19 1.347 3.41c.165.22 2.328 3.555 5.643 4.987.789.34 1.404.543 1.884.694.79.252 1.51.217 2.079.132.634-.095 1.953-.799 2.228-1.57.275-.77.275-1.43.193-1.568-.083-.138-.303-.22-.633-.385z"/></svg>
+            </a>
           </div>
         </div>
         <div style={{ marginTop: 14 }}>
@@ -64,10 +70,20 @@ function ProductCard({ p, onQuick, onAdd }: { p: PublishedProduct & { vitrineCat
             <span style={{ fontFamily: 'var(--sans)', fontSize: 13, fontWeight: 600, color: 'var(--ink)', whiteSpace: 'nowrap', flexShrink: 0 }}>{formatXAF(p.price)}</span>
           </div>
           {p.description && <p style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'var(--muted)', marginTop: 4, lineHeight: 1.5 }}>{p.description}</p>}
-          <div style={{ marginTop: 8 }}>
+          <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
             <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: 999, border: '1px solid rgba(26,26,26,0.12)', fontSize: 11, color: 'var(--muted)' }}>
               {CAT_LABELS[p.category]?.label ?? p.category}
             </span>
+            <a
+              href={waMsg}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              style={{ fontSize: 11, fontWeight: 600, color: '#25D366', display: 'flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap' }}
+            >
+              <svg width="13" height="13" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.668 4.61 1.832 6.508L4 29l7.697-1.808A12.94 12.94 0 0016 28c6.627 0 12-5.373 12-12S22.627 3 16 3zm6.04 13.86c-.33-.165-1.953-.963-2.256-1.073-.303-.11-.523-.165-.743.165-.22.33-.852 1.073-1.045 1.292-.193.22-.385.248-.715.083-.33-.165-1.393-.513-2.654-1.637-.98-.875-1.643-1.955-1.836-2.285-.193-.33-.02-.508.145-.673.15-.148.33-.385.495-.578.165-.193.22-.33.33-.55.11-.22.055-.413-.028-.578-.083-.165-.743-1.79-1.018-2.45-.268-.643-.54-.555-.743-.565l-.633-.011c-.22 0-.578.083-.88.413-.303.33-1.155 1.128-1.155 2.75s1.183 3.19 1.347 3.41c.165.22 2.328 3.555 5.643 4.987.789.34 1.404.543 1.884.694.79.252 1.51.217 2.079.132.634-.095 1.953-.799 2.228-1.57.275-.77.275-1.43.193-1.568-.083-.138-.303-.22-.633-.385z"/></svg>
+              Commander
+            </a>
           </div>
         </div>
       </article>
@@ -263,6 +279,8 @@ function CartDrawer({ open, onClose, cart, products, updateQty, onOrderDone }: {
 }
 
 export function Boutique() {
+  const config = useConfig();
+  const waNumber = config.whatsapp_default ?? '237699114722';
   const [products, setProducts] = useState<(PublishedProduct & { vitrineCat: string })[]>([]);
   const [loading, setLoading] = useState(true);
   const [cat, setCat] = useState('all');
@@ -389,7 +407,7 @@ export function Boutique() {
         {!loading && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 28 }} className="shop-grid">
             {visible.map(p => (
-              <ProductCard key={p.id} p={p} onQuick={() => setQuick(p)} onAdd={() => addToCart(p)} />
+              <ProductCard key={p.id} p={p} onQuick={() => setQuick(p)} onAdd={() => addToCart(p)} waNumber={waNumber} />
             ))}
           </div>
         )}

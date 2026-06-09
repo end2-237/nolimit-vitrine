@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import { Reveal } from './Reveal';
+import { useConfig } from '@/lib/useConfig';
 
-const CENTRES = [
-  { id: 'douala', name: 'Douala', qty: '6 praticiens', quartier: 'Bonapriso', horaires: 'Lun–Sam 8h–19h', addr: 'Rue Njo-Njo, Immeuble Vert', tel: '+237 6 99 11 47 22', email: 'douala@nolimit.cm' },
-  { id: 'yaounde', name: 'Yaoundé', qty: '4 praticiens', quartier: 'Bastos', horaires: 'Lun–Sam 8h–18h', addr: 'Rue 1814, Résidence Bastos', tel: '+237 6 75 32 18 44', email: 'yaounde@nolimit.cm' },
-  { id: 'bafoussam', name: 'Bafoussam', qty: '2 praticiens', quartier: 'Centre-ville', horaires: 'Mar–Sam 9h–17h', addr: "Avenue de l'Indépendance", tel: '+237 6 55 78 91 03', email: 'bafoussam@nolimit.cm' },
+const CENTRES_BASE = [
+  { id: 'douala',    name: 'Douala',    qty: '6 praticiens', quartier: 'Bonapriso',   horaires: 'Lun–Sam 8h–19h', addr: 'Rue Njo-Njo, Immeuble Vert',     email: 'douala@nolimit.cm',    cfgPhone: 'phone_douala' },
+  { id: 'yaounde',   name: 'Yaoundé',   qty: '4 praticiens', quartier: 'Bastos',      horaires: 'Lun–Sam 8h–18h', addr: 'Rue 1814, Résidence Bastos',      email: 'yaounde@nolimit.cm',   cfgPhone: 'phone_yaounde' },
+  { id: 'bafoussam', name: 'Bafoussam', qty: '2 praticiens', quartier: 'Centre-ville', horaires: 'Mar–Sam 9h–17h', addr: "Avenue de l'Indépendance",       email: 'bafoussam@nolimit.cm', cfgPhone: 'phone_bafoussam' },
 ];
 
 function InfoCell({ label, lines }: { label: string; lines: string[] }) {
@@ -19,6 +20,9 @@ function InfoCell({ label, lines }: { label: string; lines: string[] }) {
 }
 
 export function Contact() {
+  const config = useConfig();
+  const CENTRES = CENTRES_BASE.map(c => ({ ...c, tel: config[c.cfgPhone] ?? (c.cfgPhone === 'phone_douala' ? '+237 6 99 11 47 22' : c.cfgPhone === 'phone_yaounde' ? '+237 6 75 32 18 44' : '+237 6 55 78 91 03') }));
+
   const [form, setForm] = useState({ name: '', email: '', phone: '', city: 'Douala', type: 'Information', message: '' });
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
