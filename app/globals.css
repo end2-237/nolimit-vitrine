@@ -1,16 +1,16 @@
 /* ─── Design tokens ──────────────────────────────────────────────── */
 :root {
-  --sage: #3D4F3C;
-  --sage-mid: #5C6E58;
-  --sage-light: #A8B89E;
-  --cream: #F5F1EA;
-  --cream-warm: #ECE5D8;
-  --terracotta: #B8593D;
-  --terracotta-soft: #C97558;
-  --gold: #B8935A;
-  --ink: #1A1A1A;
-  --ink-soft: #2C2C2A;
-  --muted: #6F6B62;
+  --sage: #1E7D4A;
+  --sage-mid: #2E9D5E;
+  --sage-light: #89CFA4;
+  --cream: #F4FBF6;
+  --cream-warm: #E8F5EC;
+  --terracotta: #E05C2A;
+  --terracotta-soft: #E87447;
+  --gold: #F0A800;
+  --ink: #0C2218;
+  --ink-soft: #163524;
+  --muted: #4A7A62;
 
   --serif: "Fraunces", "Cormorant Garamond", Georgia, serif;
   --sans: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -178,27 +178,27 @@ section { position: relative; }
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(120% 90% at 30% 25%, #E6DDC8 0%, transparent 55%),
-    radial-gradient(100% 80% at 75% 80%, #C9BEA5 0%, transparent 60%),
-    linear-gradient(180deg, #DCD2BD 0%, #B8AC93 100%);
+    radial-gradient(120% 90% at 30% 25%, #C8E8D4 0%, transparent 55%),
+    radial-gradient(100% 80% at 75% 80%, #A5D4B8 0%, transparent 60%),
+    linear-gradient(180deg, #BDDECB 0%, #8FC4A5 100%);
 }
 .ph.sage {
   background:
-    radial-gradient(110% 90% at 25% 20%, rgba(245,241,234,0.18) 0%, transparent 60%),
-    radial-gradient(90% 70% at 80% 85%, rgba(20,28,18,0.45) 0%, transparent 60%),
-    linear-gradient(180deg, #6c8067 0%, #3D4F3C 100%);
+    radial-gradient(110% 90% at 25% 20%, rgba(244,251,246,0.22) 0%, transparent 60%),
+    radial-gradient(90% 70% at 80% 85%, rgba(12,34,24,0.45) 0%, transparent 60%),
+    linear-gradient(180deg, #2E9D5E 0%, #1E7D4A 100%);
 }
 .ph.dark {
   background:
-    radial-gradient(100% 80% at 30% 25%, rgba(245,241,234,0.10) 0%, transparent 55%),
-    radial-gradient(90% 70% at 75% 80%, rgba(0,0,0,0.55) 0%, transparent 60%),
-    linear-gradient(180deg, #2a2e26 0%, #161a14 100%);
+    radial-gradient(100% 80% at 30% 25%, rgba(244,251,246,0.12) 0%, transparent 55%),
+    radial-gradient(90% 70% at 75% 80%, rgba(0,0,0,0.5) 0%, transparent 60%),
+    linear-gradient(180deg, #0F3D24 0%, #071912 100%);
 }
 .ph.warm {
   background:
-    radial-gradient(110% 90% at 30% 20%, #d99b7e 0%, transparent 60%),
-    radial-gradient(90% 70% at 80% 85%, #6e2f1a 0%, transparent 65%),
-    linear-gradient(180deg, #b8593d 0%, #7c3920 100%);
+    radial-gradient(110% 90% at 30% 20%, #f0b080 0%, transparent 60%),
+    radial-gradient(90% 70% at 80% 85%, #8b3010 0%, transparent 65%),
+    linear-gradient(180deg, #E05C2A 0%, #a33510 100%);
 }
 .ph::after {
   content: "";
