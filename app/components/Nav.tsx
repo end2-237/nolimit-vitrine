@@ -29,14 +29,17 @@ function Logo({ color = 'currentColor' }: { color?: string }) {
     <a
       href="#top"
       onClick={(e) => { e.preventDefault(); scrollToId('top'); }}
-      style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', gap: 1, textDecoration: 'none' }}
+      style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center', gap: 10, textDecoration: 'none' }}
     >
-      <span style={{ fontFamily: 'var(--serif)', fontSize: 24, letterSpacing: '-0.02em', color, fontWeight: 400, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 2 }}>
-        No Limit
-        <span style={{ color: 'var(--terracotta)', fontStyle: 'italic', fontWeight: 300 }}>.</span>
-      </span>
-      <span style={{ fontFamily: 'var(--sans)', fontSize: 9.5, letterSpacing: '0.18em', textTransform: 'uppercase', color: color === 'var(--ink)' ? 'var(--muted)' : 'rgba(245,241,234,0.6)', fontWeight: 400, lineHeight: 1 }}>
-        Solution Santé Nature
+      <img src="/nol.png" alt="No Limit logo" style={{ width: 36, height: 36, objectFit: 'contain', flexShrink: 0 }} />
+      <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', gap: 1 }}>
+        <span style={{ fontFamily: 'var(--serif)', fontSize: 24, letterSpacing: '-0.02em', color, fontWeight: 400, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 2 }}>
+          No Limit
+          <span style={{ color: 'var(--terracotta)', fontStyle: 'italic', fontWeight: 300 }}>.</span>
+        </span>
+        <span style={{ fontFamily: 'var(--sans)', fontSize: 9.5, letterSpacing: '0.18em', textTransform: 'uppercase', color: color === 'var(--ink)' ? 'var(--muted)' : 'rgba(245,241,234,0.6)', fontWeight: 400, lineHeight: 1 }}>
+          Solution Santé Nature
+        </span>
       </span>
     </a>
   );
@@ -164,8 +167,11 @@ export function Nav({ onBook }: { onBook: () => void }) {
         <div style={{ position: 'fixed', inset: 0, zIndex: 200, background: 'var(--ink)', color: 'var(--cream)', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(24px,6vw,80px)', animation: 'fadeIn .3s ease' }}>
           <button onClick={() => setMenuOpen(false)} style={{ position: 'absolute', top: 28, right: 28, width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(245,241,234,0.3)', color: 'var(--cream)' }} aria-label="Fermer">✕</button>
 
-          <div style={{ fontFamily: 'var(--sans)', fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,241,234,0.4)', marginBottom: 32 }}>
-            Solution Santé Nature
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 32 }}>
+            <img src="/nol.png" alt="No Limit logo" style={{ width: 32, height: 32, objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.7 }} />
+            <span style={{ fontFamily: 'var(--sans)', fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,241,234,0.4)' }}>
+              Solution Santé Nature
+            </span>
           </div>
 
           <nav style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
