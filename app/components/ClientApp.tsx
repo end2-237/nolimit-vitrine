@@ -17,8 +17,9 @@ import { Footer } from './Footer';
 import { Booking } from './Booking';
 import { Arrow } from './Reveal';
 import { useScrollY } from './hooks';
+import { useConfig } from '@/lib/useConfig';
 
-function FloatingActions({ onBook }: { onBook: () => void }) {
+function FloatingActions({ onBook, bookingEnabled }: { onBook: () => void; bookingEnabled: boolean }) {
   const y = useScrollY();
   const visible = y > 600;
   return (
@@ -33,21 +34,28 @@ function FloatingActions({ onBook }: { onBook: () => void }) {
       <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Remonter en haut" style={{ width: 52, height: 52, borderRadius: '50%', background: 'var(--cream)', border: '1px solid rgba(26,26,26,0.15)', color: 'var(--ink)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 14px 30px -10px rgba(26,26,26,0.3)', transition: 'transform .3s ease, background .3s ease' }}>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 13V3M3 8L8 3L13 8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </button>
-      <button onClick={onBook} className="btn btn-primary" style={{ padding: '18px 26px', fontSize: 13, boxShadow: '0 18px 40px -10px rgba(184,89,61,0.6)', display: 'inline-flex', alignItems: 'center', gap: 12 }}>
-        <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--cream)', animation: 'pulse 2s infinite' }} />
-        Réserver une séance
-        <Arrow />
-      </button>
+      {bookingEnabled && (
+        <button onClick={onBook} className="btn btn-primary" style={{ padding: '18px 26px', fontSize: 13, boxShadow: '0 18px 40px -10px rgba(184,89,61,0.6)', display: 'inline-flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--cream)', animation: 'pulse 2s infinite' }} />
+          Réserver une séance
+          <Arrow />
+        </button>
+      )}
     </div>
   );
 }
 
 export function ClientApp() {
+  const config = useConfig();
+  const bookingEnabled = config.booking_enabled !== 'false';
+  const boutiqueEnabled = config.boutique_enabled !== 'false';
+
   const [bookingOpen, setBookingOpen] = useState(false);
   const [prefill, setPrefill] = useState('');
   useCustomCursor();
 
   const openBooking = (svc?: string) => {
+    if (!bookingEnabled) return;
     setPrefill(svc || '');
     setBookingOpen(true);
   };
@@ -63,7 +71,7 @@ export function ClientApp() {
       <Lieu />
       <Centres />
       <Galerie />
-      <Boutique />
+      {boutiqueEnabled && <Boutique />}
       <Temoignages />
       <Journal />
       <FAQ />
@@ -71,8 +79,8 @@ export function ClientApp() {
       <Newsletter />
       <Footer />
 
-      <FloatingActions onBook={() => openBooking()} />
-      <Booking open={bookingOpen} onClose={() => setBookingOpen(false)} prefilled={prefill} />
+      <FloatingActions onBook={() => openBooking()} bookingEnabled={bookingEnabled} />
+      {bookingEnabled && <Booking open={bookingOpen} onClose={() => setBookingOpen(false)} prefilled={prefill} />}
 
       <style>{`
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
