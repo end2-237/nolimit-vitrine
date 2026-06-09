@@ -2,15 +2,14 @@ import { pool } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import { MaladiePlaylist } from './MaladiePlaylist';
 
+// Force dynamic rendering so videos are fetched fresh on every request
+export const dynamic = 'force-dynamic';
+
 const MALADIES: Record<string, { nom: string; couleur: string; desc: string }> = {
   hepatite:     { nom: 'Hépatite',     couleur: '#B8935A', desc: 'Traitements naturels de l\'hépatite virale et chronique' },
   vih:          { nom: 'VIH',          couleur: '#1E7B6A', desc: 'Accompagnement naturel des personnes vivant avec le VIH' },
   hypertension: { nom: 'Hypertension', couleur: '#4A6741', desc: 'Gestion naturelle de la tension artérielle' },
 };
-
-export async function generateStaticParams() {
-  return Object.keys(MALADIES).map(id => ({ id }));
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
