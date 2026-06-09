@@ -49,6 +49,7 @@ function VideoThumb({ item, style }: { item: SiteMedia; style?: React.CSSPropert
         style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
         loop
         playsInline
+        crossOrigin="anonymous"
         onEnded={() => setPlaying(false)}
       />
       {!playing && (
@@ -92,8 +93,7 @@ function MediaBlock({ item, fallbackClass, style }: {
 
 // ─── Equipe ──────────────────────────────────────────────────────
 const TEAM = [
-  { name: 'Dr. No Limit', role: 'Chercheur & Médecin principal', site: 'Douala', img: 'sage', years: 30, bio: "Fondateur de la vision No Limit. Médecin et chercheur, il sélectionne les formules et supervise la qualité de l'ensemble des produits naturels proposés dans nos centres." },
-  { name: 'Direction générale', role: 'Management & Direction opérationnelle', site: 'Douala', img: 'dark', years: 2, bio: "Co-fondateur et directeur général, il assure la gestion quotidienne, les partenariats stratégiques et le développement commercial de No Limit à travers ses trois centres." },
+  { name: 'Dr. Yongwa Guy Bertin', role: 'Chercheur & Médecin principal — Direction générale', site: 'Douala', img: 'sage', years: 30, bio: "Fondateur de la vision No Limit. Médecin et chercheur, il sélectionne les formules, supervise la qualité de l'ensemble des produits naturels et assure la direction générale des trois centres." },
   { name: 'Équipe Douala', role: 'Conseillers santé naturelle', site: 'Douala', img: 'warm', years: 1, bio: "Trois conseillers formés à la prescription et à l'accompagnement des produits No Limit. Ils reçoivent les clients du lundi au samedi de 09h00 à 19h00." },
   { name: 'Équipe Yaoundé', role: 'Conseillers santé naturelle', site: 'Yaoundé', img: '', years: 1, bio: "Trois conseillers formés à la prescription et à l'accompagnement des produits No Limit. Ils reçoivent les clients du lundi au samedi de 09h00 à 19h00." },
   { name: 'Équipe Bafoussam', role: 'Conseillers santé naturelle', site: 'Bafoussam', img: 'sage', years: 1, bio: "Trois conseillers formés à la prescription et à l'accompagnement des produits No Limit. Ils reçoivent les clients du lundi au samedi de 08h00 à 17h30." },
@@ -217,9 +217,9 @@ export function Lieu() {
 
 // ─── Centres ─────────────────────────────────────────────────────
 const CENTRES_DATA = [
-  { name: 'Douala',    sub: 'Cameroun', desc: 'Notre centre principal. Lun–Sam, 09h00–19h00. Consultation médecin : 09h00–18h00. Samedi : fermeture entre 15h00 et 16h00.', qty: '3+ conseillers', img: 'sage',  subsection: 'douala' },
-  { name: 'Yaoundé',  sub: 'Cameroun', desc: 'Centre actif. Lun–Sam, 09h00–19h00. Consultation médecin : 09h00–18h00. Samedi : fermeture entre 15h00 et 16h00.',          qty: '3+ conseillers', img: 'dark',  subsection: 'yaounde' },
-  { name: 'Bafoussam',sub: 'Cameroun', desc: 'Notre antenne Ouest. Lun–Sam, 08h00–17h30. Samedi : journée continue plus courte, fermeture entre 15h00 et 16h00.',          qty: '3+ conseillers', img: 'warm',  subsection: 'bafoussam' },
+  { name: 'Douala',    sub: 'Cameroun', desc: 'Face Totale — Logpom. Lun–Sam, 09h00–19h00. Consultation médecin : 09h00–18h00.', qty: '3+ conseillers', img: 'sage',  subsection: 'douala' },
+  { name: 'Yaoundé',  sub: 'Cameroun', desc: 'Santa Barbara — Immeuble blanc. Lun–Sam, 09h00–19h00. Consultation médecin : 09h00–18h00.', qty: '3+ conseillers', img: 'dark',  subsection: 'yaounde' },
+  { name: 'Bafoussam', sub: 'Cameroun', desc: "Près de l'agence Général Express. Lun–Sam, 08h00–17h30.", qty: '3+ conseillers', img: 'warm', subsection: 'bafoussam' },
 ];
 
 export function Centres() {

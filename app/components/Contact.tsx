@@ -5,9 +5,9 @@ import { Reveal } from './Reveal';
 import { useConfig } from '@/lib/useConfig';
 
 const CENTRES_BASE = [
-  { id: 'douala',    name: 'Douala',    qty: '6 praticiens', quartier: 'Bonapriso',   horaires: 'Lun–Sam 8h–19h', addr: 'Rue Njo-Njo, Immeuble Vert',     email: 'douala@nolimit.cm',    cfgPhone: 'phone_douala' },
-  { id: 'yaounde',   name: 'Yaoundé',   qty: '4 praticiens', quartier: 'Bastos',      horaires: 'Lun–Sam 8h–18h', addr: 'Rue 1814, Résidence Bastos',      email: 'yaounde@nolimit.cm',   cfgPhone: 'phone_yaounde' },
-  { id: 'bafoussam', name: 'Bafoussam', qty: '2 praticiens', quartier: 'Centre-ville', horaires: 'Mar–Sam 9h–17h', addr: "Avenue de l'Indépendance",       email: 'bafoussam@nolimit.cm', cfgPhone: 'phone_bafoussam' },
+  { id: 'douala',    name: 'Douala',    qty: '3+ conseillers', quartier: 'Logpom',       horaires: 'Lun–Sam, 09h–19h',   addr: 'Face Totale — Logpom',                   email: 'douala@nolimit.cm',    cfgPhone: 'phone_douala',    cfgAddr: 'addr_douala' },
+  { id: 'yaounde',   name: 'Yaoundé',   qty: '3+ conseillers', quartier: 'Santa Barbara', horaires: 'Lun–Sam, 09h–19h',   addr: 'Santa Barbara — Immeuble blanc',         email: 'yaounde@nolimit.cm',   cfgPhone: 'phone_yaounde',   cfgAddr: 'addr_yaounde' },
+  { id: 'bafoussam', name: 'Bafoussam', qty: '3+ conseillers', quartier: 'Centre-ville',  horaires: 'Lun–Sam, 08h–17h30', addr: "Près de l'agence Général Express",       email: 'bafoussam@nolimit.cm', cfgPhone: 'phone_bafoussam', cfgAddr: 'addr_bafoussam' },
 ];
 
 function InfoCell({ label, lines }: { label: string; lines: string[] }) {
@@ -21,7 +21,11 @@ function InfoCell({ label, lines }: { label: string; lines: string[] }) {
 
 export function Contact() {
   const config = useConfig();
-  const CENTRES = CENTRES_BASE.map(c => ({ ...c, tel: config[c.cfgPhone] ?? (c.cfgPhone === 'phone_douala' ? '+237 6 99 11 47 22' : c.cfgPhone === 'phone_yaounde' ? '+237 6 75 32 18 44' : '+237 6 55 78 91 03') }));
+  const CENTRES = CENTRES_BASE.map(c => ({
+    ...c,
+    tel:  config[c.cfgPhone] ?? (c.cfgPhone === 'phone_douala' ? '+237 6 99 11 47 22' : c.cfgPhone === 'phone_yaounde' ? '+237 6 75 32 18 44' : '+237 6 55 78 91 03'),
+    addr: config[c.cfgAddr]  ?? c.addr,
+  }));
 
   const [form, setForm] = useState({ name: '', email: '', phone: '', city: 'Douala', type: 'Information', message: '' });
   const [sent, setSent] = useState(false);
