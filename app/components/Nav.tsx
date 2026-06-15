@@ -31,13 +31,13 @@ function Logo({ color = 'currentColor' }: { color?: string }) {
       onClick={(e) => { e.preventDefault(); scrollToId('top'); }}
       style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center', gap: 10, textDecoration: 'none' }}
     >
-      <img src="/nol.png" alt="No Limit logo" style={{ width: 36, height: 36, objectFit: 'contain', flexShrink: 0 }} />
-      <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', gap: 1 }}>
-        <span style={{ fontFamily: 'var(--serif)', fontSize: 24, letterSpacing: '-0.02em', color, fontWeight: 400, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 2 }}>
+      <img src="/nol.png" alt="No Limit logo" style={{ width: 52, height: 52, objectFit: 'contain', flexShrink: 0 }} />
+      <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4 }}>
+        <span style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(28px, 2.6vw, 38px)', letterSpacing: '-0.02em', color, fontWeight: 400, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 2 }}>
           No Limit
           <span style={{ color: 'var(--terracotta)', fontStyle: 'italic', fontWeight: 300 }}>.</span>
         </span>
-        <span style={{ fontFamily: 'var(--sans)', fontSize: 9.5, letterSpacing: '0.18em', textTransform: 'uppercase', color: color === 'var(--ink)' ? 'var(--muted)' : 'rgba(245,241,234,0.6)', fontWeight: 400, lineHeight: 1 }}>
+        <span style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(14px, 1.4vw, 20px)', letterSpacing: '0.05em', fontStyle: 'italic', color: color === 'var(--ink)' ? 'var(--sage)' : 'var(--sage-light)', fontWeight: 400, lineHeight: 1 }}>
           Solution Santé Nature
         </span>
       </span>
