@@ -25,8 +25,13 @@ export function Footer() {
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(20px, 3vw, 48px)', paddingBottom: 60, borderBottom: '1px solid rgba(245,241,234,0.12)' }}>
           <img src="/nol.png" alt="No Limit logo" style={{ width: 'clamp(64px, 8vw, 110px)', height: 'clamp(64px, 8vw, 110px)', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.85, flexShrink: 0 }} />
-          <div style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(60px, 15vw, 240px)', letterSpacing: '-0.04em', lineHeight: 0.9, fontWeight: 300, color: 'var(--cream)' }}>
-            No&nbsp;Limit<span style={{ color: 'var(--terracotta)' }}>.</span>
+          <div>
+            <div style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(52px, 13vw, 220px)', letterSpacing: '-0.04em', lineHeight: 0.9, fontWeight: 300, color: 'var(--cream)' }}>
+              No&nbsp;Limit<span style={{ color: 'var(--terracotta)' }}>.</span>
+            </div>
+            <div style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(22px, 5.5vw, 96px)', letterSpacing: '-0.02em', lineHeight: 1, fontWeight: 300, color: 'var(--sage-light)', marginTop: 'clamp(6px, 1vw, 16px)', fontStyle: 'italic' }}>
+              Solution Santé Nature
+            </div>
           </div>
         </div>
 
@@ -40,7 +45,9 @@ export function Footer() {
               <><strong style={{ color: 'var(--cream)' }}>Douala</strong> — Cameroun</>,
               <><strong style={{ color: 'var(--cream)' }}>Yaoundé</strong> — Cameroun</>,
               <><strong style={{ color: 'var(--cream)' }}>Bafoussam</strong> — Cameroun</>,
-              <>Partenaire : <strong style={{ color: 'var(--sage-light)' }}>Pharaon</strong></>,
+              <><strong style={{ color: 'var(--sage-light)' }}>Face Totale</strong> — Logpom, Douala</>,
+              <><strong style={{ color: 'var(--sage-light)' }}>Santa Barbara</strong> — Immeuble blanc, Yaounde</>,
+              <><strong style={{ color: 'var(--sage-light)' }}>Général Express</strong> — Bafoussam</>,
             ]}
           />
         </div>

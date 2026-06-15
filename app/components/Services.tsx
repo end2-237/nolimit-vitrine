@@ -34,6 +34,11 @@ export function Services({ onBook }: { onBook: (svc?: string) => void }) {
                 Nos produits &amp; services,<br />100 % <em>naturels</em>.
               </h2>
             </Reveal>
+            <Reveal delay={150}>
+              <h2 style={{ fontSize: 'clamp(40px, 6vw, 96px)', marginTop: 'clamp(16px, 2vw, 32px)', fontWeight: 300, maxWidth: 880, lineHeight: 1.05 }}>
+                Disponibles en <em style={{ color: 'var(--gold)' }}>gros</em> pour les revendeurs,<br />et en <em style={{ color: 'var(--sage)' }}>détail</em> pour les consommateurs.
+              </h2>
+            </Reveal>
           </div>
           <Reveal delay={200}>
             <p style={{ maxWidth: 380, fontSize: 15, lineHeight: 1.75, color: 'var(--muted)' }}>
