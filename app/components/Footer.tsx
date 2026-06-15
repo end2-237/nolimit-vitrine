@@ -23,8 +23,11 @@ export function Footer() {
   return (
     <footer style={{ background: 'var(--ink)', color: 'var(--cream)', padding: '100px 0 40px' }}>
       <div className="container">
-        <div style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(80px, 18vw, 280px)', letterSpacing: '-0.04em', lineHeight: 0.9, fontWeight: 300, paddingBottom: 60, borderBottom: '1px solid rgba(245,241,234,0.12)', color: 'var(--cream)' }}>
-          No&nbsp;Limit<span style={{ color: 'var(--terracotta)' }}>.</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(20px, 3vw, 48px)', paddingBottom: 60, borderBottom: '1px solid rgba(245,241,234,0.12)' }}>
+          <img src="/nol.png" alt="No Limit logo" style={{ width: 'clamp(64px, 8vw, 110px)', height: 'clamp(64px, 8vw, 110px)', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.85, flexShrink: 0 }} />
+          <div style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(60px, 15vw, 240px)', letterSpacing: '-0.04em', lineHeight: 0.9, fontWeight: 300, color: 'var(--cream)' }}>
+            No&nbsp;Limit<span style={{ color: 'var(--terracotta)' }}>.</span>
+          </div>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32, paddingTop: 60 }} className="footer-grid">
