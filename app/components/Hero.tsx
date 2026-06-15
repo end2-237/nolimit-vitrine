@@ -2,6 +2,7 @@
 
 import { useScrollY, scrollToId } from './hooks';
 import { Reveal, WordsReveal, Arrow } from './Reveal';
+import { useConfig } from '@/lib/useConfig';
 
 function FoliageLayer({ scrollY, z, opacity, hue, offset = 0, blur = 2 }: { scrollY: number; z: number; opacity: number; hue: number; offset?: number; blur?: number }) {
   return (
@@ -29,6 +30,17 @@ function FoliageLayer({ scrollY, z, opacity, hue, offset = 0, blur = 2 }: { scro
 
 export function Hero({ onBook }: { onBook: () => void }) {
   const y = useScrollY();
+  const config = useConfig();
+
+  const heroTitle = config.hero_title ?? 'Le bien-être, sans limite.';
+  const heroSubtitle = config.hero_subtitle ?? 'Établi en 2024 — compléments alimentaires & soins naturels à Douala, Yaoundé, Bafoussam';
+  const heroDescription = config.hero_description ?? 'Compléments alimentaires, ampoules buvables et produits de santé 100 % naturels — sans produits chimiques. Importés des meilleures sources mondiales pour améliorer votre santé à prix abordable.';
+
+  // Split title into parts for WordsReveal animation
+  const titleParts = heroTitle.split(',');
+  const titleLine1 = titleParts[0] ? titleParts[0].trim() + (titleParts.length > 1 ? ',' : '') : 'Le bien-être,';
+  const titleLine2 = titleParts.slice(1).join(',').trim() || 'sans limite.';
+
   return (
     <section id="top" style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden', color: 'var(--cream)' }}>
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
@@ -49,23 +61,21 @@ export function Hero({ onBook }: { onBook: () => void }) {
         <div style={{ maxWidth: 1100 }}>
           <Reveal>
             <span style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 18, fontWeight: 300, color: 'var(--sage-light)' }}>
-              Fondé en 2024 — compléments alimentaires &amp; soins naturels à Douala, Yaoundé, Bafoussam
+              {heroSubtitle}
             </span>
           </Reveal>
           <h1 style={{ fontSize: 'clamp(56px, 11vw, 180px)', fontWeight: 300, color: 'var(--cream)', marginTop: 28, letterSpacing: '-0.035em', lineHeight: 0.94 }}>
-            <WordsReveal text="Le bien-être," />
+            <WordsReveal text={titleLine1} />
             <br />
-            <WordsReveal text="sans" as="span" />
-            {' '}
             <em style={{ fontWeight: 300, color: 'var(--sage-light)' }}>
-              <WordsReveal text="limite." as="span" />
+              <WordsReveal text={titleLine2} as="span" />
             </em>
           </h1>
 
           <Reveal delay={500}>
             <div style={{ marginTop: 40, display: 'flex', flexWrap: 'wrap', gap: 60, alignItems: 'flex-end', justifyContent: 'space-between' }}>
               <p style={{ maxWidth: 480, fontSize: 17, lineHeight: 1.65, color: 'rgba(245,241,234,0.88)' }}>
-                Compléments alimentaires, ampoules buvables et produits de santé 100 % naturels — sans produits chimiques. Importés des meilleures sources mondiales pour améliorer votre santé à prix abordable.
+                {heroDescription}
               </p>
               <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
                 <button className="btn btn-primary" onClick={() => scrollToId('soins')}>
