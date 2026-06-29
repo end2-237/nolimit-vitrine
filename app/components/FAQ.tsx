@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { Reveal } from './Reveal';
+import { useConfig, waLink } from '@/lib/useConfig';
+import { WhatsAppIcon } from './CtaPair';
 
 const FAQS = [
   { q: "Vos produits sont-ils vraiment 100 % naturels ?", a: "Oui. Tous nos compléments alimentaires, ampoules buvables et produits de santé sont fabriqués uniquement à partir d'ingrédients naturels, sans additifs chimiques ni conservateurs de synthèse. Nos fournisseurs sont soigneusement sélectionnés en Chine, Inde, Thaïlande, Bénin, Maroc et Afrique du Sud." },
@@ -35,6 +37,8 @@ function FAQItem({ f, isOpen, onToggle }: { f: typeof FAQS[0]; isOpen: boolean; 
 
 export function FAQ() {
   const [open, setOpen] = useState<number>(0);
+  const config = useConfig();
+  const waHref = waLink(config.whatsapp_default ?? '237699114722', '2356 Bonjour Docteur, j\'ai une question avant de commencer.');
   return (
     <section style={{ padding: 'var(--sec-pad) 0', background: 'var(--cream-warm)' }}>
       <div className="container">
@@ -48,8 +52,13 @@ export function FAQ() {
             </Reveal>
             <Reveal delay={200}>
               <p style={{ marginTop: 24, color: 'var(--muted)', fontSize: 15, lineHeight: 1.7, maxWidth: 320 }}>
-                Une autre question ? Contactez-nous directement, nous répondons sous 24h ouvrées.
+                Une autre question ? Parlez directement à notre médecin, réponse en quelques minutes.
               </p>
+            </Reveal>
+            <Reveal delay={250}>
+              <a href={waHref} target="_blank" rel="noopener noreferrer" className="btn btn-wa" style={{ marginTop: 20, fontSize: 13 }}>
+                <WhatsAppIcon size={18} /> Poser ma question
+              </a>
             </Reveal>
           </div>
           <div>

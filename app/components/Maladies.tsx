@@ -269,22 +269,15 @@ function MaladieCard({ maladie, media, index, waLink }: {
             href={waLink(maladie.message_wa ?? `2356 ${maladie.nom} - Bonjour Docteur, je souhaite des informations.`)}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: 12,
-              padding: '15px 24px', borderRadius: 100,
-              background: '#25D366', color: 'white',
-              fontFamily: 'var(--sans)', fontSize: 13, fontWeight: 700,
-              textDecoration: 'none', letterSpacing: '0.01em',
-              boxShadow: '0 10px 28px -6px rgba(37,211,102,0.45)',
-              transition: 'transform .25s, box-shadow .25s',
-              alignSelf: 'flex-start',
-            }}
-            onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 16px 36px -6px rgba(37,211,102,0.55)'; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 10px 28px -6px rgba(37,211,102,0.45)'; }}
+            className="btn btn-wa"
+            style={{ alignSelf: 'flex-start', fontSize: 13 }}
           >
-            <svg width="18" height="18" viewBox="0 0 32 32" fill="white"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.668 4.61 1.832 6.508L4 29l7.697-1.808A12.94 12.94 0 0016 28c6.627 0 12-5.373 12-12S22.627 3 16 3zm6.04 13.86c-.33-.165-1.953-.963-2.256-1.073-.303-.11-.523-.165-.743.165-.22.33-.852 1.073-1.045 1.292-.193.22-.385.248-.715.083-.33-.165-1.393-.513-2.654-1.637-.98-.875-1.643-1.955-1.836-2.285-.193-.33-.02-.508.145-.673.15-.148.33-.385.495-.578.165-.193.22-.33.33-.55.11-.22.055-.413-.028-.578-.083-.165-.743-1.79-1.018-2.45-.268-.643-.54-.555-.743-.565l-.633-.011c-.22 0-.578.083-.88.413-.303.33-1.155 1.128-1.155 2.75s1.183 3.19 1.347 3.41c.165.22 2.328 3.555 5.643 4.987.789.34 1.404.543 1.884.694.79.252 1.51.217 2.079.132.634-.095 1.953-.799 2.228-1.57.275-.77.275-1.43.193-1.568-.083-.138-.303-.22-.633-.385z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.668 4.61 1.832 6.508L4 29l7.697-1.808A12.94 12.94 0 0016 28c6.627 0 12-5.373 12-12S22.627 3 16 3zm6.04 13.86c-.33-.165-1.953-.963-2.256-1.073-.303-.11-.523-.165-.743.165-.22.33-.852 1.073-1.045 1.292-.193.22-.385.248-.715.083-.33-.165-1.393-.513-2.654-1.637-.98-.875-1.643-1.955-1.836-2.285-.193-.33-.02-.508.145-.673.15-.148.33-.385.495-.578.165-.193.22-.33.33-.55.11-.22.055-.413-.028-.578-.083-.165-.743-1.79-1.018-2.45-.268-.643-.54-.555-.743-.565l-.633-.011c-.22 0-.578.083-.88.413-.303.33-1.155 1.128-1.155 2.75s1.183 3.19 1.347 3.41c.165.22 2.328 3.555 5.643 4.987.789.34 1.404.543 1.884.694.79.252 1.51.217 2.079.132.634-.095 1.953-.799 2.228-1.57.275-.77.275-1.43.193-1.568-.083-.138-.303-.22-.633-.385z"/></svg>
             Discuter avec le docteur
           </a>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, fontSize: 12, color: 'var(--muted)' }}>
+            <span aria-hidden>👨‍⚕️</span> Suivi personnalisé par notre médecin
+          </span>
         </div>
       </div>
     </Reveal>

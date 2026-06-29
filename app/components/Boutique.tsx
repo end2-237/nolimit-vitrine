@@ -80,21 +80,23 @@ function ProductCard({ p, onQuick, onAdd, waNumber }: { p: PublishedProduct & { 
             <span style={{ fontFamily: 'var(--sans)', fontSize: 13, fontWeight: 600, color: 'var(--ink)', whiteSpace: 'nowrap', flexShrink: 0 }}>{formatXAF(p.price)}</span>
           </div>
           {p.description && <p style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'var(--muted)', marginTop: 4, lineHeight: 1.5 }}>{p.description}</p>}
-          <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-            <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: 999, border: '1px solid rgba(26,26,26,0.12)', fontSize: 11, color: 'var(--muted)' }}>
+          <div style={{ marginTop: 6 }}>
+            <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: 999, border: '1px solid rgba(12,34,24,0.12)', fontSize: 11, color: 'var(--muted)' }}>
               {CAT_LABELS[p.category]?.label ?? p.category}
             </span>
-            <a
-              href={waMsg}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              style={{ fontSize: 11, fontWeight: 600, color: '#25D366', display: 'flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap' }}
-            >
-              <svg width="13" height="13" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.668 4.61 1.832 6.508L4 29l7.697-1.808A12.94 12.94 0 0016 28c6.627 0 12-5.373 12-12S22.627 3 16 3zm6.04 13.86c-.33-.165-1.953-.963-2.256-1.073-.303-.11-.523-.165-.743.165-.22.33-.852 1.073-1.045 1.292-.193.22-.385.248-.715.083-.33-.165-1.393-.513-2.654-1.637-.98-.875-1.643-1.955-1.836-2.285-.193-.33-.02-.508.145-.673.15-.148.33-.385.495-.578.165-.193.22-.33.33-.55.11-.22.055-.413-.028-.578-.083-.165-.743-1.79-1.018-2.45-.268-.643-.54-.555-.743-.565l-.633-.011c-.22 0-.578.083-.88.413-.303.33-1.155 1.128-1.155 2.75s1.183 3.19 1.347 3.41c.165.22 2.328 3.555 5.643 4.987.789.34 1.404.543 1.884.694.79.252 1.51.217 2.079.132.634-.095 1.953-.799 2.228-1.57.275-.77.275-1.43.193-1.568-.083-.138-.303-.22-.633-.385z"/></svg>
-              Commander
-            </a>
           </div>
+          {/* CTA commande toujours visible (sans hover) */}
+          <a
+            href={waMsg}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="btn btn-wa"
+            style={{ width: '100%', marginTop: 12, fontSize: 13, minHeight: 46 }}
+          >
+            <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.668 4.61 1.832 6.508L4 29l7.697-1.808A12.94 12.94 0 0016 28c6.627 0 12-5.373 12-12S22.627 3 16 3zm6.04 13.86c-.33-.165-1.953-.963-2.256-1.073-.303-.11-.523-.165-.743.165-.22.33-.852 1.073-1.045 1.292-.193.22-.385.248-.715.083-.33-.165-1.393-.513-2.654-1.637-.98-.875-1.643-1.955-1.836-2.285-.193-.33-.02-.508.145-.673.15-.148.33-.385.495-.578.165-.193.22-.33.33-.55.11-.22.055-.413-.028-.578-.083-.165-.743-1.79-1.018-2.45-.268-.643-.54-.555-.743-.565l-.633-.011c-.22 0-.578.083-.88.413-.303.33-1.155 1.128-1.155 2.75s1.183 3.19 1.347 3.41c.165.22 2.328 3.555 5.643 4.987.789.34 1.404.543 1.884.694.79.252 1.51.217 2.079.132.634-.095 1.953-.799 2.228-1.57.275-.77.275-1.43.193-1.568-.083-.138-.303-.22-.633-.385z"/></svg>
+            Commander sur WhatsApp
+          </a>
         </div>
       </article>
     </Reveal>

@@ -3,18 +3,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { useScrollY, scrollToId } from './hooks';
 import { Arrow } from './Reveal';
+import { useConfig, waLink } from '@/lib/useConfig';
+import { WhatsAppIcon } from './CtaPair';
 
-/* Items affichés directement dans la barre */
+/* Items affichés directement dans la barre — intention forte en clair */
 const NAV_PRIMARY = [
-  { id: 'soins',    label: 'Soins' },
+  { id: 'maladies', label: 'Maladies' },
   { id: 'boutique', label: 'Boutique' },
+  { id: 'soins',    label: 'Soins' },
   { id: 'contact',  label: 'Contact' },
 ];
 
 /* Items regroupés dans le menu déroulant "Explorer" */
 const NAV_DROPDOWN = [
   { id: 'philosophie', label: 'Manifeste' },
-  { id: 'maladies',   label: 'Maladies traitées' },
   { id: 'centres',    label: 'Nos centres' },
   { id: 'galerie',    label: 'Galerie' },
   { id: 'journal',    label: 'Journal' },
@@ -63,7 +65,7 @@ function Dropdown({ solid, onNav }: { solid: boolean; onNav?: () => void }) {
         onClick={() => setOpen(v => !v)}
         style={{
           fontSize: 13, fontWeight: 500, letterSpacing: '0.04em',
-          color: solid ? 'var(--ink-soft)' : 'rgba(245,241,234,0.92)',
+          color: 'var(--ink-soft)',
           background: 'none', border: 'none', cursor: 'pointer', padding: 0,
           display: 'flex', alignItems: 'center', gap: 5, transition: 'color .3s',
         }}
@@ -114,6 +116,10 @@ export function Nav({ onBook }: { onBook: () => void }) {
   const y = useScrollY();
   const solid = y > 60;
   const [menuOpen, setMenuOpen] = useState(false);
+  const config = useConfig();
+  const waNumber = config.whatsapp_default ?? '237699114722';
+  const waHref = waLink(waNumber, '2356 Bonjour Docteur, je souhaite des informations.');
+  const bookingEnabled = config.booking_enabled !== 'false';
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -127,36 +133,41 @@ export function Nav({ onBook }: { onBook: () => void }) {
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
         transition: 'all .45s cubic-bezier(.2,.7,.2,1)',
         padding: solid ? '12px 0' : '22px 0',
-        background: solid ? 'rgba(245,241,234,0.82)' : 'transparent',
+        background: solid ? 'rgba(255,255,255,0.85)' : 'transparent',
         backdropFilter: solid ? 'blur(18px) saturate(140%)' : 'none',
         WebkitBackdropFilter: solid ? 'blur(18px) saturate(140%)' : 'none',
-        borderBottom: solid ? '1px solid rgba(26,26,26,0.06)' : '1px solid transparent',
+        borderBottom: solid ? '1px solid rgba(12,34,24,0.07)' : '1px solid transparent',
       }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 32 }}>
-          <Logo color={solid ? 'var(--ink)' : 'var(--cream)'} />
+          <Logo color="var(--ink)" />
 
           <nav style={{ display: 'flex', gap: 28, alignItems: 'center' }} className="nav-desktop">
             <Dropdown solid={solid} />
             {NAV_PRIMARY.map((it) => (
               <a key={it.id} href={`#${it.id}`}
                 onClick={(e) => { e.preventDefault(); scrollToId(it.id); }}
-                style={{ fontSize: 13, fontWeight: 500, letterSpacing: '0.04em', color: solid ? 'var(--ink-soft)' : 'rgba(245,241,234,0.92)', transition: 'color .3s ease' }}>
+                style={{ fontSize: 13, fontWeight: 500, letterSpacing: '0.04em', color: 'var(--ink-soft)', transition: 'color .3s ease' }}>
                 {it.label}
               </a>
             ))}
           </nav>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <button onClick={onBook} className="btn btn-primary nav-book-btn" style={{ fontSize: 13, padding: '12px 22px' }} aria-label="Réserver">
-              Réserver <Arrow />
-            </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <a href={waHref} target="_blank" rel="noopener noreferrer" className="btn btn-wa nav-wa-btn" style={{ fontSize: 13, padding: '12px 20px' }}>
+              <WhatsAppIcon size={17} /> Parler au docteur
+            </a>
+            {bookingEnabled && (
+              <button onClick={onBook} className="btn btn-outline nav-book-btn" style={{ fontSize: 13, padding: '12px 20px' }} aria-label="Réserver">
+                Réserver <Arrow />
+              </button>
+            )}
             <button onClick={() => setMenuOpen(v => !v)} aria-label="Menu" className="nav-burger" style={{
               width: 44, height: 44, borderRadius: '50%', border: '1px solid', display: 'none', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 5,
-              borderColor: solid ? 'rgba(26,26,26,0.2)' : 'rgba(245,241,234,0.4)',
+              borderColor: 'rgba(12,34,24,0.2)',
             }}>
-              <span style={{ width: 18, height: 1, background: solid ? 'var(--ink)' : 'var(--cream)', transition: 'transform .3s, opacity .3s', transform: menuOpen ? 'translateY(6px) rotate(45deg)' : 'none' }} />
-              <span style={{ width: 18, height: 1, background: solid ? 'var(--ink)' : 'var(--cream)', transition: 'opacity .3s', opacity: menuOpen ? 0 : 1 }} />
-              <span style={{ width: 18, height: 1, background: solid ? 'var(--ink)' : 'var(--cream)', transition: 'transform .3s, opacity .3s', transform: menuOpen ? 'translateY(-6px) rotate(-45deg)' : 'none' }} />
+              <span style={{ width: 18, height: 1, background: 'var(--ink)', transition: 'transform .3s, opacity .3s', transform: menuOpen ? 'translateY(6px) rotate(45deg)' : 'none' }} />
+              <span style={{ width: 18, height: 1, background: 'var(--ink)', transition: 'opacity .3s', opacity: menuOpen ? 0 : 1 }} />
+              <span style={{ width: 18, height: 1, background: 'var(--ink)', transition: 'transform .3s, opacity .3s', transform: menuOpen ? 'translateY(-6px) rotate(-45deg)' : 'none' }} />
             </button>
           </div>
         </div>
@@ -203,6 +214,7 @@ export function Nav({ onBook }: { onBook: () => void }) {
           .nav-desktop { display: none !important; }
           .nav-burger { display: flex !important; }
           .nav-book-btn { display: none !important; }
+          .nav-wa-btn { display: none !important; }
         }
       `}</style>
     </>
