@@ -1,4 +1,5 @@
 import React from 'react';
+import { BackToTop } from './BackToTop';
 
 function FooterCol({ title, items }: { title: string; items: (string | React.ReactNode)[] }) {
   return (
@@ -24,7 +25,7 @@ export function Footer() {
     <footer style={{ background: 'var(--ink)', color: 'var(--cream)', padding: '100px 0 40px' }}>
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(20px, 3vw, 48px)', paddingBottom: 60, borderBottom: '1px solid rgba(245,241,234,0.12)' }}>
-          <img src="/nol.png" alt="No Limit logo" style={{ width: 'clamp(64px, 8vw, 110px)', height: 'clamp(64px, 8vw, 110px)', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.85, flexShrink: 0 }} />
+          <img src="/nol.png" alt="No Limit logo" style={{ width: 'clamp(64px, 8vw, 110px)', height: 'clamp(64px, 8vw, 110px)', objectFit: 'cover', borderRadius: '50%', border: '1px solid rgba(245,241,234,0.2)', opacity: 0.92, flexShrink: 0 }} />
           <div>
             <div style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(52px, 13vw, 220px)', letterSpacing: '-0.04em', lineHeight: 0.9, fontWeight: 300, color: 'var(--cream)' }}>
               No&nbsp;Limit<span style={{ color: 'var(--terracotta)' }}>.</span>
@@ -62,6 +63,10 @@ export function Footer() {
           <span style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'rgba(245,241,234,0.55)' }}>
             Direction artistique &nbsp;·&nbsp; Studio No&nbsp;Limit
           </span>
+        </div>
+
+        <div style={{ marginTop: 28, display: 'flex', justifyContent: 'center' }}>
+          <BackToTop />
         </div>
       </div>
       <style>{`

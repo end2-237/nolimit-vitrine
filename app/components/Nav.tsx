@@ -33,7 +33,7 @@ function Logo({ color = 'currentColor' }: { color?: string }) {
       onClick={(e) => { e.preventDefault(); scrollToId('top'); }}
       style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center', gap: 10, textDecoration: 'none' }}
     >
-      <img src="/nol.png" alt="No Limit logo" style={{ width: 52, height: 52, objectFit: 'contain', flexShrink: 0 }} />
+      <img src="/nol.png" alt="No Limit logo" style={{ width: 52, height: 52, objectFit: 'cover', borderRadius: '50%', border: '1px solid rgba(12,34,24,0.10)', background: '#fff', flexShrink: 0 }} />
       <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4 }}>
         <span style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(28px, 2.6vw, 38px)', letterSpacing: '-0.02em', color, fontWeight: 400, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 2 }}>
           No Limit
@@ -179,7 +179,7 @@ export function Nav({ onBook }: { onBook: () => void }) {
           <button onClick={() => setMenuOpen(false)} style={{ position: 'absolute', top: 28, right: 28, width: 44, height: 44, borderRadius: '50%', border: '1px solid rgba(245,241,234,0.3)', color: 'var(--cream)' }} aria-label="Fermer">✕</button>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 32 }}>
-            <img src="/nol.png" alt="No Limit logo" style={{ width: 32, height: 32, objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.7 }} />
+            <img src="/nol.png" alt="No Limit logo" style={{ width: 32, height: 32, objectFit: 'cover', borderRadius: '50%', border: '1px solid rgba(245,241,234,0.25)', opacity: 0.9 }} />
             <span style={{ fontFamily: 'var(--sans)', fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,241,234,0.4)' }}>
               Solution Santé Nature
             </span>

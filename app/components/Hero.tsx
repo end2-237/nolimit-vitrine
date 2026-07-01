@@ -4,6 +4,7 @@ import { useScrollY } from './hooks';
 import { Reveal, WordsReveal } from './Reveal';
 import { useConfig, waLink } from '@/lib/useConfig';
 import { CtaPair, WhatsAppIcon } from './CtaPair';
+import { HeroProductStrip } from './HeroProductStrip';
 
 function FoliageLayer({ scrollY, opacity, offset = 0, blur = 2 }: { scrollY: number; opacity: number; offset?: number; blur?: number }) {
   return (
@@ -52,6 +53,13 @@ export function Hero({ onBook }: { onBook: () => void }) {
 
   const number = config.whatsapp_default ?? '237699114722';
 
+  // Textes pilotables depuis site_config (avec valeurs par défaut)
+  const heroEyebrow = config.hero_eyebrow ?? 'Médecine naturelle · Cameroun';
+  const ratingLabel = config.hero_rating_label ?? 'Recommandé par nos patients';
+  const ctaTitle = config.hero_cta_title ?? 'Parlez à notre médecin maintenant';
+  const ctaSubtitle = config.hero_cta_subtitle ?? 'Choisissez votre centre, on vous répond sur WhatsApp en quelques minutes.';
+  const bookLabel = config.hero_book_label ?? 'Ou réserver un bilan en centre';
+
   return (
     <section id="top" style={{ position: 'relative', overflow: 'hidden', color: 'var(--ink)', background: 'linear-gradient(180deg, #FFFFFF 0%, var(--cream) 45%, var(--cream-warm) 100%)' }}>
       {/* Accents lumineux */}
@@ -68,7 +76,7 @@ export function Hero({ onBook }: { onBook: () => void }) {
           {/* ── Colonne gauche : message + CTA ── */}
           <div>
             <Reveal>
-              <span className="eyebrow">Médecine naturelle · Cameroun</span>
+              <span className="eyebrow">{heroEyebrow}</span>
             </Reveal>
             <h1 style={{ fontSize: 'clamp(44px, 7vw, 104px)', fontWeight: 300, color: 'var(--ink)', marginTop: 22, letterSpacing: '-0.035em', lineHeight: 0.98 }}>
               <WordsReveal text={titleLine1} />
@@ -88,8 +96,12 @@ export function Hero({ onBook }: { onBook: () => void }) {
               </p>
             </Reveal>
 
+            <Reveal delay={500}>
+              <HeroProductStrip />
+            </Reveal>
+
             <Reveal delay={550}>
-              <div style={{ marginTop: 32 }}>
+              <div style={{ marginTop: 22 }}>
                 <CtaPair
                   waMessage="2356 Bonjour Docteur, je souhaite des informations sur vos solutions naturelles."
                   onBook={onBook}
@@ -114,13 +126,13 @@ export function Hero({ onBook }: { onBook: () => void }) {
             <div className="card-light hero-action" style={{ padding: 'clamp(24px, 2.4vw, 34px)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
                 <span style={{ color: 'var(--gold)', fontSize: 16, letterSpacing: 1 }}>★★★★★</span>
-                <span style={{ fontSize: 13, color: 'var(--muted)', fontWeight: 600 }}>Recommandé par nos patients</span>
+                <span style={{ fontSize: 13, color: 'var(--muted)', fontWeight: 600 }}>{ratingLabel}</span>
               </div>
               <h3 style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(22px, 2.2vw, 30px)', fontWeight: 400, color: 'var(--ink)', lineHeight: 1.15, marginTop: 8 }}>
-                Parlez à notre médecin maintenant
+                {ctaTitle}
               </h3>
               <p style={{ fontSize: 13.5, color: 'var(--muted)', marginTop: 10, lineHeight: 1.6 }}>
-                Choisissez votre centre, on vous répond sur WhatsApp en quelques minutes.
+                {ctaSubtitle}
               </p>
 
               {/* Choix du centre → WhatsApp */}
@@ -142,7 +154,7 @@ export function Hero({ onBook }: { onBook: () => void }) {
 
               {config.booking_enabled !== 'false' && (
                 <button onClick={onBook} className="btn btn-outline" style={{ width: '100%', marginTop: 14, minHeight: 50 }}>
-                  Ou réserver un bilan en centre
+                  {bookLabel}
                 </button>
               )}
             </div>
