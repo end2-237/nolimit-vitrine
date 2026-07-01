@@ -534,7 +534,7 @@ export function Boutique() {
       <style>{`
         @media (max-width: 1100px) { .shop-grid { grid-template-columns: repeat(3, 1fr) !important; } }
         @media (max-width: 780px)  { .shop-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 480px)  { .shop-grid { grid-template-columns: 1fr !important; } }
+        @media (max-width: 480px)  { .shop-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; } }
         .shop-cats-row::-webkit-scrollbar { display: none; }
         .shop-cats-row { scrollbar-width: none; }
         @media (min-width: 900px) {
