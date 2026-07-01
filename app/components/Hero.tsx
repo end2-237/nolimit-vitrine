@@ -59,22 +59,29 @@ export function Hero({ onBook }: { onBook: () => void }) {
   const ctaTitle = config.hero_cta_title ?? 'Parlez à notre médecin maintenant';
   const ctaSubtitle = config.hero_cta_subtitle ?? 'Choisissez votre centre, on vous répond sur WhatsApp en quelques minutes.';
   const bookLabel = config.hero_book_label ?? 'Ou réserver un bilan en centre';
+  const heroImage = config.hero_image_url ?? '/hero-green.jpg';
 
   return (
-    <section id="top" style={{ position: 'relative', overflow: 'hidden', color: 'var(--ink)', background: 'linear-gradient(180deg, #FFFFFF 0%, var(--cream) 45%, var(--cream-warm) 100%)' }}>
-      {/* Accents lumineux */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
-        <FoliageLayer scrollY={y} opacity={0.5} />
-        <FoliageLayer scrollY={y} opacity={0.35} offset={180} blur={4} />
-        <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '50vw', height: '50vw', background: 'radial-gradient(circle, rgba(63,184,115,0.18) 0%, transparent 65%)', filter: 'blur(20px)' }} />
-        <div style={{ position: 'absolute', bottom: '-10%', left: '-8%', width: '45vw', height: '45vw', background: 'radial-gradient(circle, rgba(240,168,0,0.12) 0%, transparent 65%)', filter: 'blur(24px)' }} />
-      </div>
+    <section id="top" style={{ position: 'relative', color: 'var(--ink)', background: 'var(--cream)', padding: 'clamp(10px, 1.6vw, 20px)', paddingTop: 'clamp(84px, 11vh, 120px)' }}>
+      {/* Cadre arrondi façon Med4Med, fond santé vert */}
+      <div className="hero-frame" style={{ position: 'relative', overflow: 'hidden', borderRadius: 'clamp(22px, 2.6vw, 40px)', border: '1px solid rgba(12,34,24,0.10)', boxShadow: '0 30px 80px -40px rgba(12,34,24,0.35)' }}>
 
-      <div className="container" style={{ position: 'relative', zIndex: 2, paddingTop: 'clamp(120px, 16vh, 180px)', paddingBottom: 'clamp(48px, 7vw, 96px)' }}>
+        {/* Image de fond (santé naturelle verte) */}
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'right center', transform: `translateY(${y * 0.04}px) scale(1.05)` }} />
+        {/* Voile de lisibilité : clair à gauche (texte), image visible à droite */}
+        <div style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'linear-gradient(102deg, rgba(255,255,255,0.97) 0%, rgba(252,250,245,0.9) 34%, rgba(250,248,242,0.55) 56%, rgba(63,184,115,0.10) 100%)' }} />
+        {/* Teinte verte de marque + accents lumineux */}
+        <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }}>
+          <FoliageLayer scrollY={y} opacity={0.28} />
+          <div style={{ position: 'absolute', top: '-12%', right: '-6%', width: '46vw', height: '46vw', background: 'radial-gradient(circle, rgba(63,184,115,0.22) 0%, transparent 65%)', filter: 'blur(22px)' }} />
+          <div style={{ position: 'absolute', bottom: '-14%', left: '-8%', width: '42vw', height: '42vw', background: 'radial-gradient(circle, rgba(240,168,0,0.10) 0%, transparent 65%)', filter: 'blur(26px)' }} />
+        </div>
+
+      <div className="container" style={{ position: 'relative', zIndex: 2, paddingTop: 'clamp(56px, 9vh, 110px)', paddingBottom: 'clamp(48px, 7vw, 96px)' }}>
         <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.15fr 0.85fr', gap: 'clamp(32px, 5vw, 72px)', alignItems: 'center' }}>
 
           {/* ── Colonne gauche : message + CTA ── */}
-          <div>
+          <div style={{ minWidth: 0 }}>
             <Reveal>
               <span className="eyebrow">{heroEyebrow}</span>
             </Reveal>
@@ -122,7 +129,7 @@ export function Hero({ onBook }: { onBook: () => void }) {
           </div>
 
           {/* ── Colonne droite : carte d'action ── */}
-          <Reveal delay={300}>
+          <Reveal delay={300} style={{ minWidth: 0 }}>
             <div className="card-light hero-action" style={{ padding: 'clamp(24px, 2.4vw, 34px)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
                 <span style={{ color: 'var(--gold)', fontSize: 16, letterSpacing: 1 }}>★★★★★</span>
@@ -162,10 +169,15 @@ export function Hero({ onBook }: { onBook: () => void }) {
         </div>
       </div>
 
+      </div>{/* /hero-frame */}
+
       <style>{`
         @media (max-width: 920px) {
           .hero-grid { grid-template-columns: 1fr !important; }
-          .hero-action { max-width: 520px; }
+          .hero-action { max-width: 560px; margin-top: 8px; }
+        }
+        @media (max-width: 560px) {
+          .hero-frame { border-radius: 20px; }
         }
       `}</style>
     </section>
