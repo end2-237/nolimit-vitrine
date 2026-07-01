@@ -46,7 +46,7 @@ function ProductCard({ p, onQuick, onAdd, waNumber }: { p: PublishedProduct & { 
       <article
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        style={{ position: 'relative', cursor: 'pointer' }}
+        style={{ position: 'relative', cursor: 'pointer', height: '100%', display: 'flex', flexDirection: 'column' }}
         onClick={onQuick}
       >
         <div className={`ph ${tone}`} style={{ aspectRatio: '4/5', borderRadius: 4, position: 'relative', overflow: 'hidden' }}>
@@ -74,13 +74,13 @@ function ProductCard({ p, onQuick, onAdd, waNumber }: { p: PublishedProduct & { 
             </a>
           </div>
         </div>
-        <div style={{ marginTop: 14 }}>
+        <div style={{ marginTop: 14, flex: 1, display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 }}>
-            <h3 style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(15px, 1.4vw, 18px)', fontWeight: 400, letterSpacing: '-0.01em', lineHeight: 1.2 }}>{p.name}</h3>
+            <h3 className="prod-name" style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(15px, 1.4vw, 18px)', fontWeight: 400, letterSpacing: '-0.01em', lineHeight: 1.2 }}>{p.name}</h3>
             <span style={{ fontFamily: 'var(--sans)', fontSize: 13, fontWeight: 600, color: 'var(--ink)', whiteSpace: 'nowrap', flexShrink: 0 }}>{formatXAF(p.price)}</span>
           </div>
-          {p.description && <p style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'var(--muted)', marginTop: 4, lineHeight: 1.5 }}>{p.description}</p>}
-          <div style={{ marginTop: 6 }}>
+          {p.description && <p className="prod-desc" style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'var(--muted)', marginTop: 4, lineHeight: 1.5 }}>{p.description}</p>}
+          <div style={{ marginTop: 6, marginBottom: 12 }}>
             <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: 999, border: '1px solid rgba(12,34,24,0.12)', fontSize: 11, color: 'var(--muted)' }}>
               {CAT_LABELS[p.category]?.label ?? p.category}
             </span>
@@ -92,7 +92,7 @@ function ProductCard({ p, onQuick, onAdd, waNumber }: { p: PublishedProduct & { 
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             className="btn btn-wa"
-            style={{ width: '100%', marginTop: 12, fontSize: 13, minHeight: 46 }}
+            style={{ width: '100%', marginTop: 'auto', fontSize: 13, minHeight: 46 }}
           >
             <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.668 4.61 1.832 6.508L4 29l7.697-1.808A12.94 12.94 0 0016 28c6.627 0 12-5.373 12-12S22.627 3 16 3zm6.04 13.86c-.33-.165-1.953-.963-2.256-1.073-.303-.11-.523-.165-.743.165-.22.33-.852 1.073-1.045 1.292-.193.22-.385.248-.715.083-.33-.165-1.393-.513-2.654-1.637-.98-.875-1.643-1.955-1.836-2.285-.193-.33-.02-.508.145-.673.15-.148.33-.385.495-.578.165-.193.22-.33.33-.55.11-.22.055-.413-.028-.578-.083-.165-.743-1.79-1.018-2.45-.268-.643-.54-.555-.743-.565l-.633-.011c-.22 0-.578.083-.88.413-.303.33-1.155 1.128-1.155 2.75s1.183 3.19 1.347 3.41c.165.22 2.328 3.555 5.643 4.987.789.34 1.404.543 1.884.694.79.252 1.51.217 2.079.132.634-.095 1.953-.799 2.228-1.57.275-.77.275-1.43.193-1.568-.083-.138-.303-.22-.633-.385z"/></svg>
             Commander sur WhatsApp
@@ -535,6 +535,10 @@ export function Boutique() {
         @media (max-width: 1100px) { .shop-grid { grid-template-columns: repeat(3, 1fr) !important; } }
         @media (max-width: 780px)  { .shop-grid { grid-template-columns: repeat(2, 1fr) !important; } }
         @media (max-width: 480px)  { .shop-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; } }
+        .shop-grid { align-items: stretch; }
+        .shop-grid > * { height: 100%; min-width: 0; }
+        .prod-name { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .prod-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .shop-cats-row::-webkit-scrollbar { display: none; }
         .shop-cats-row { scrollbar-width: none; }
         @media (min-width: 900px) {
