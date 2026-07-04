@@ -2,8 +2,8 @@
 
 import { useScrollY } from './hooks';
 import { Reveal, WordsReveal } from './Reveal';
-import { useConfig, waLink } from '@/lib/useConfig';
-import { CtaPair, WhatsAppIcon } from './CtaPair';
+import { useConfig } from '@/lib/useConfig';
+import { CtaPair } from './CtaPair';
 import { HeroProductStrip } from './HeroProductStrip';
 
 function FoliageLayer({ scrollY, opacity, offset = 0, blur = 2 }: { scrollY: number; opacity: number; offset?: number; blur?: number }) {
@@ -33,11 +33,6 @@ function FoliageLayer({ scrollY, opacity, offset = 0, blur = 2 }: { scrollY: num
   );
 }
 
-const CENTRES: { key: string; label: string }[] = [
-  { key: 'whatsapp_douala', label: 'Douala' },
-  { key: 'whatsapp_yaounde', label: 'Yaoundé' },
-  { key: 'whatsapp_bafoussam', label: 'Bafoussam' },
-];
 
 export function Hero({ onBook }: { onBook: () => void }) {
   const y = useScrollY();
@@ -51,14 +46,8 @@ export function Hero({ onBook }: { onBook: () => void }) {
   const titleLine1 = titleParts[0] ? titleParts[0].trim() + (titleParts.length > 1 ? ',' : '') : heroTitle;
   const titleLine2 = titleParts.slice(1).join(',').trim();
 
-  const number = config.whatsapp_default ?? '237699114722';
-
   // Textes pilotables depuis site_config (avec valeurs par défaut)
   const heroEyebrow = config.hero_eyebrow ?? 'Médecine naturelle · Cameroun';
-  const ratingLabel = config.hero_rating_label ?? 'Recommandé par nos patients';
-  const ctaTitle = config.hero_cta_title ?? 'Parlez à notre médecin maintenant';
-  const ctaSubtitle = config.hero_cta_subtitle ?? 'Choisissez votre centre, on vous répond sur WhatsApp en quelques minutes.';
-  const bookLabel = config.hero_book_label ?? 'Ou réserver un bilan en centre';
   const heroImage = config.hero_image_url ?? '/hero-green.jpg';
 
   return (
@@ -78,7 +67,7 @@ export function Hero({ onBook }: { onBook: () => void }) {
         </div>
 
       <div className="container" style={{ position: 'relative', zIndex: 2, paddingTop: 'clamp(56px, 9vh, 110px)', paddingBottom: 'clamp(48px, 7vw, 96px)' }}>
-        <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.15fr 0.85fr', gap: 'clamp(32px, 5vw, 72px)', alignItems: 'center' }}>
+        <div className="hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'clamp(32px, 5vw, 72px)', alignItems: 'center', maxWidth: 860 }}>
 
           {/* ── Colonne gauche : message + CTA ── */}
           <div style={{ minWidth: 0 }}>
@@ -127,45 +116,6 @@ export function Hero({ onBook }: { onBook: () => void }) {
               ))}
             </div>
           </div>
-
-          {/* ── Colonne droite : carte d'action ── */}
-          <Reveal delay={300} style={{ minWidth: 0 }}>
-            <div className="card-light hero-action" style={{ padding: 'clamp(24px, 2.4vw, 34px)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
-                <span style={{ color: 'var(--gold)', fontSize: 16, letterSpacing: 1 }}>★★★★★</span>
-                <span style={{ fontSize: 13, color: 'var(--muted)', fontWeight: 600 }}>{ratingLabel}</span>
-              </div>
-              <h3 style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(22px, 2.2vw, 30px)', fontWeight: 400, color: 'var(--ink)', lineHeight: 1.15, marginTop: 8 }}>
-                {ctaTitle}
-              </h3>
-              <p style={{ fontSize: 13.5, color: 'var(--muted)', marginTop: 10, lineHeight: 1.6 }}>
-                {ctaSubtitle}
-              </p>
-
-              {/* Choix du centre → WhatsApp */}
-              <div style={{ display: 'grid', gap: 10, marginTop: 18 }}>
-                {CENTRES.map(c => (
-                  <a
-                    key={c.key}
-                    href={waLink(config[c.key] ?? number, `2356 Bonjour, je contacte le centre de ${c.label}. Je souhaite des informations.`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-wa"
-                    style={{ justifyContent: 'space-between', padding: '14px 18px', fontSize: 13.5 }}
-                  >
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}><WhatsAppIcon size={17} /> Centre de {c.label}</span>
-                    <span aria-hidden style={{ opacity: 0.85 }}>→</span>
-                  </a>
-                ))}
-              </div>
-
-              {config.booking_enabled !== 'false' && (
-                <button onClick={onBook} className="btn btn-outline" style={{ width: '100%', marginTop: 14, minHeight: 50 }}>
-                  {bookLabel}
-                </button>
-              )}
-            </div>
-          </Reveal>
         </div>
       </div>
 

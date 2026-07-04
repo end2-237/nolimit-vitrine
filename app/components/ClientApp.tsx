@@ -16,6 +16,7 @@ import { Contact } from './Contact';
 import { Newsletter } from './Newsletter';
 import { Footer } from './Footer';
 import { Booking } from './Booking';
+import { DoctorCTA } from './DoctorCTA';
 import { StickyCTA } from './StickyCTA';
 import { useConfig } from '@/lib/useConfig';
 
@@ -50,6 +51,7 @@ export function ClientApp() {
       <Galerie />
       <Journal />
       <FAQ />
+      <DoctorCTA onBook={() => openBooking()} />
       <Contact />
       <Newsletter />
       <Footer />
